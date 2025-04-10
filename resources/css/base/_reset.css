@@ -1,0 +1,120 @@
+/* resources/css/base/_reset.css */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remover margens e padding */
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Definir altura base para o HTML e body */
+html,
+body {
+  height: 100%;
+}
+
+/* Melhoria na renderização de texto */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+  font-family: var(--font-family-sans);
+  color: var(--color-text-light);
+  background-color: var(--color-bg-light);
+}
+
+/* No modo escuro */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-dark);
+  }
+}
+
+/* Imagens responsivas */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remover estilos de lista */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Botões */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Inputs e textareas */
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remover resize do textarea */
+textarea {
+  resize: vertical;
+}
+
+/* Melhora na acessibilidade de elementos focáveis */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remover outline padrão quando em foco usando mouse */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ocultar elementos com aria-hidden */
+[aria-hidden="true"] {
+  display: none;
+}

@@ -1,0 +1,28 @@
+/* resources/css/app.css */
+
+/* Importação das variáveis e estilos base */
+@import 'base/_variables.css';
+@import 'base/_reset.css';
+@import 'base/_typography.css';
+
+/* Importação dos componentes */
+@import 'components/_buttons.css';
+@import 'components/_forms.css';
+@import 'components/_navbar.css';
+@import 'components/_alerts.css';
+@import 'components/_cards.css';
+
+/* Importação dos layouts */
+@import 'layouts/_auth.css';
+@import 'layouts/_dashboard.css';
+@import 'layouts/_main.css';
+
+/* Importação das páginas específicas */
+@import 'pages/_login.css';
+@import 'pages/_dashboard.css';
+
+/* Importação das utilidades */
+@import 'utils/_helpers.css';
+@import 'utils/_responsive.css';
+
+@import 'components/_sidebar.css';

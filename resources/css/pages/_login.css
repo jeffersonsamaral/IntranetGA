@@ -1,0 +1,97 @@
+/* resources/css/pages/_login.css */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-light);
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .login-header {
+    background-color: var(--color-primary); 
+    padding: var(--spacing-4) var(--spacing-6);
+    text-align: center;
+  }
+  
+  .login-logo {
+    height: 60px;
+    width: auto;
+  }
+  
+  .login-title {
+    color: white;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin: var(--spacing-2) 0 0;
+  }
+  
+  .login-body {
+    background-color: var(--color-card-light);
+    padding: var(--spacing-6);
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  
+  .login-footer {
+    text-align: center;
+    margin-top: var(--spacing-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted-light);
+  }
+  
+  .login-remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .login-submit {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+  
+  /* No modo escuro */
+  @media (prefers-color-scheme: dark) {
+    .auth-container {
+      background-color: var(--color-bg-dark);
+    }
+    
+    .login-body {
+      background-color: var(--color-card-dark);
+    }
+    
+    .login-footer {
+      color: var(--color-text-muted-dark);
+    }
+  }
+  
+  /* Responsividade */
+  @media (max-width: 480px) {
+    .login-card {
+      max-width: 100%;
+      margin: 0 var(--spacing-4);
+    }
+    
+    .login-header {
+      padding: var(--spacing-3) var(--spacing-4);
+    }
+    
+    .login-body {
+      padding: var(--spacing-4);
+    }
+  }

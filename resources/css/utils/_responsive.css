@@ -1,0 +1,352 @@
+/* resources/css/utils/_responsive.css */
+
+/* Breakpoints
+ * 
+ * sm: 640px (smartphones em modo paisagem e acima)
+ * md: 768px (tablets em modo retrato e acima)
+ * lg: 1024px (tablets em modo paisagem e acima)
+ * xl: 1280px (laptops e desktops)
+ * 2xl: 1536px (desktops maiores, telas grandes)
+ */
+
+/* Smartphones (modo retrato) */
+@media (max-width: 639px) {
+  .hidden-xs {
+    display: none !important;
+  }
+  
+  .block-xs {
+    display: block !important;
+  }
+  
+  .container {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+  
+  .row-xs {
+    flex-direction: row !important;
+  }
+  
+  .col-xs {
+    flex-direction: column !important;
+  }
+}
+
+/* Smartphones (modo paisagem) e tablets pequenos */
+@media (min-width: 640px) and (max-width: 767px) {
+  .hidden-sm {
+    display: none !important;
+  }
+  
+  .block-sm {
+    display: block !important;
+  }
+  
+  .container {
+    max-width: 640px;
+  }
+  
+  .row-sm {
+    flex-direction: row !important;
+  }
+  
+  .col-sm {
+    flex-direction: column !important;
+  }
+  
+  /* Classes responsivas para dispositivos pequenos */
+  .sm\:w-full {
+    width: 100% !important;
+  }
+  
+  .sm\:w-1\/2 {
+    width: 50% !important;
+  }
+  
+  .sm\:w-1\/3 {
+    width: 33.333333% !important;
+  }
+  
+  .sm\:w-2\/3 {
+    width: 66.666667% !important;
+  }
+  
+  .sm\:m-0 {
+    margin: 0 !important;
+  }
+  
+  .sm\:mb-4 {
+    margin-bottom: var(--spacing-4) !important;
+  }
+  
+  .sm\:p-4 {
+    padding: var(--spacing-4) !important;
+  }
+  
+  .sm\:text-center {
+    text-align: center !important;
+  }
+}
+
+/* Tablets (modo retrato) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hidden-md {
+    display: none !important;
+  }
+  
+  .block-md {
+    display: block !important;
+  }
+  
+  .container {
+    max-width: 768px;
+  }
+  
+  .row-md {
+    flex-direction: row !important;
+  }
+  
+  .col-md {
+    flex-direction: column !important;
+  }
+  
+  /* Classes responsivas para tablets */
+  .md\:w-full {
+    width: 100% !important;
+  }
+  
+  .md\:w-1\/2 {
+    width: 50% !important;
+  }
+  
+  .md\:w-1\/3 {
+    width: 33.333333% !important;
+  }
+  
+  .md\:w-2\/3 {
+    width: 66.666667% !important;
+  }
+  
+  .md\:w-1\/4 {
+    width: 25% !important;
+  }
+  
+  .md\:w-3\/4 {
+    width: 75% !important;
+  }
+  
+  .md\:flex {
+    display: flex !important;
+  }
+  
+  .md\:grid {
+    display: grid !important;
+  }
+  
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablets (modo paisagem) e laptops pequenos */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hidden-lg {
+    display: none !important;
+  }
+  
+  .block-lg {
+    display: block !important;
+  }
+  
+  .container {
+    max-width: 1024px;
+  }
+  
+  .row-lg {
+    flex-direction: row !important;
+  }
+  
+  .col-lg {
+    flex-direction: column !important;
+  }
+  
+  /* Classes responsivas para dispositivos médios */
+  .lg\:w-full {
+    width: 100% !important;
+  }
+  
+  .lg\:w-1\/2 {
+    width: 50% !important;
+  }
+  
+  .lg\:w-1\/3 {
+    width: 33.333333% !important;
+  }
+  
+  .lg\:w-2\/3 {
+    width: 66.666667% !important;
+  }
+  
+  .lg\:w-1\/4 {
+    width: 25% !important;
+  }
+  
+  .lg\:w-3\/4 {
+    width: 75% !important;
+  }
+  
+  .lg\:w-1\/5 {
+    width: 20% !important;
+  }
+  
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Desktops e laptops grandes */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .hidden-xl {
+    display: none !important;
+  }
+  
+  .block-xl {
+    display: block !important;
+  }
+  
+  .container {
+    max-width: 1280px;
+  }
+  
+  /* Classes responsivas para desktops */
+  .xl\:w-1\/6 {
+    width: 16.666667% !important;
+  }
+  
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  
+  .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Telas muito grandes */
+@media (min-width: 1536px) {
+  .hidden-2xl {
+    display: none !important;
+  }
+  
+  .block-2xl {
+    display: block !important;
+  }
+  
+  .container {
+    max-width: 1536px;
+  }
+  
+  /* Classes responsivas para telas grandes */
+  .2xl\:w-1\/6 {
+    width: 16.666667% !important;
+  }
+  
+  .2xl\:w-1\/7 {
+    width: 14.285714% !important;
+  }
+  
+  .2xl\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Orientação da tela */
+@media (orientation: portrait) {
+  .hidden-portrait {
+    display: none !important;
+  }
+  
+  .block-portrait {
+    display: block !important;
+  }
+}
+
+@media (orientation: landscape) {
+  .hidden-landscape {
+    display: none !important;
+  }
+  
+  .block-landscape {
+    display: block !important;
+  }
+}
+
+/* Suporte para dark mode */
+@media (prefers-color-scheme: dark) {
+  .hidden-dark {
+    display: none !important;
+  }
+  
+  .block-dark {
+    display: block !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .hidden-light {
+    display: none !important;
+  }
+  
+  .block-light {
+    display: block !important;
+  }
+}
+
+/* Suporte para impressão */
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+  
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  body {
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+    color: #000 !important;
+    background-color: #fff !important;
+  }
+  
+  a {
+    text-decoration: underline !important;
+    color: #000 !important;
+  }
+  
+  .no-break {
+    break-inside: avoid !important;
+  }
+  
+  .page-break {
+    page-break-before: always !important;
+  }
+  
+  .navbar, 
+  .footer,
+  .sidebar,
+  .no-print {
+    display: none !important;
+  }
+}

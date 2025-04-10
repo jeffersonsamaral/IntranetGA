@@ -1,0 +1,170 @@
+// resources/sass/_variables.scss
+
+// Cores principais
+$color-primary: #F61500;         // Vermelho principal do Laravel
+$color-primary-light: #FF4433;   // Versão mais clara do vermelho
+$color-primary-dark: #D01200;    // Versão mais escura do vermelho
+
+// Cores de fundo
+$color-bg-light: #FDFDFC;        // Fundo claro (modo light)
+$color-bg-dark: #0a0a0a;         // Fundo escuro (modo dark)
+$color-card-light: #ffffff;      // Fundo do cartão (modo light)
+$color-card-dark: #161615;       // Fundo do cartão (modo dark)
+
+// Cores de texto
+$color-text-light: #1b1b18;      // Texto principal (modo light)
+$color-text-dark: #EDEDEC;       // Texto principal (modo dark)
+$color-text-muted-light: #706f6c;// Texto secundário (modo light)
+$color-text-muted-dark: #A1A09A; // Texto secundário (modo dark)
+
+// Cores de borda
+$color-border-light: #e3e3e0;    // Borda padrão (modo light)
+$color-border-dark: #3E3E3A;     // Borda padrão (modo dark)
+$color-border-hover-light: rgba(25, 20, 0, 0.21); // Borda hover (modo light)
+$color-border-hover-dark: #62605b;    // Borda hover (modo dark)
+
+// Espaçamentos
+$spacing: (
+  '1': 0.25rem,  // 4px
+  '2': 0.5rem,   // 8px
+  '3': 0.75rem,  // 12px
+  '4': 1rem,     // 16px
+  '5': 1.25rem,  // 20px
+  '6': 1.5rem,   // 24px
+  '8': 2rem,     // 32px
+  '10': 2.5rem,  // 40px
+  '12': 3rem,    // 48px
+  '16': 4rem,    // 64px
+  '20': 5rem,    // 80px
+);
+
+// Tipografia
+$font-family-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+$font-sizes: (
+  'xs': 0.75rem,    // 12px
+  'sm': 0.875rem,   // 14px
+  'base': 1rem,     // 16px
+  'lg': 1.125rem,   // 18px
+  'xl': 1.25rem,    // 20px
+  '2xl': 1.5rem,    // 24px
+);
+
+// Pesos da fonte
+$font-weights: (
+  'normal': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+);
+
+// Alturas de linha
+$line-heights: (
+  'tight': 1.25,
+  'normal': 1.5,
+  'relaxed': 1.625,
+);
+
+// Bordas arredondadas
+$border-radius: (
+  'sm': 0.25rem,  // 4px
+  'md': 0.375rem, // 6px
+  'lg': 0.5rem,   // 8px
+  'full': 9999px,
+);
+
+// Transições
+$transitions: (
+  'fast': 0.15s ease-in-out,
+  'normal': 0.3s ease-in-out,
+  'slow': 0.5s ease-in-out,
+);
+
+// Sombras
+$shadow-card-light: inset 0px 0px 0px 1px rgba(26, 26, 0, 0.16);
+$shadow-card-dark: inset 0px 0px 0px 1px rgba(255, 250, 237, 0.18);
+$shadow-dropdown: 0px 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+
+// resources/sass/components/_buttons.scss
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: map-get($spacing, '1') map-get($spacing, '5');
+  border-radius: map-get($border-radius, 'sm');
+  font-size: map-get($font-sizes, 'sm');
+  font-weight: map-get($font-weights, 'medium');
+  line-height: map-get($line-heights, 'normal');
+  text-align: center;
+  transition: all map-get($transitions, 'fast');
+  cursor: pointer;
+  
+  &-primary {
+    background-color: $color-primary;
+    color: white;
+    border: 1px solid $color-primary;
+    
+    &:hover {
+      background-color: $color-primary-dark;
+      border-color: $color-primary-dark;
+    }
+  }
+  
+  &-outline {
+    background-color: transparent;
+    color: $color-text-light;
+    border: 1px solid $color-border-hover-light;
+    
+    &:hover {
+      border-color: $color-text-light;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      color: $color-text-dark;
+      border-color: $color-border-dark;
+      
+      &:hover {
+        border-color: $color-text-dark;
+      }
+    }
+  }
+  
+  &-sm {
+    padding: map-get($spacing, '1') map-get($spacing, '3');
+    font-size: map-get($font-sizes, 'xs');
+  }
+  
+  &-lg {
+    padding: map-get($spacing, '2') map-get($spacing, '6');
+    font-size: map-get($font-sizes, 'base');
+  }
+}
+
+// resources/sass/app.scss
+
+// Importação de variáveis
+@import 'variables';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+
+// Componentes
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/navbar';
+@import 'components/alerts';
+@import 'components/cards';
+
+// Layouts
+@import 'layouts/auth';
+@import 'layouts/dashboard';
+@import 'layouts/main';
+
+// Páginas específicas
+@import 'pages/login';
+@import 'pages/dashboard';
+
+// Utilidades
+@import 'utils/helpers';
+@import 'utils/responsive';

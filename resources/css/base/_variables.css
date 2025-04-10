@@ -1,0 +1,76 @@
+/* resources/css/base/_variables.css */
+
+:root {
+  /* Cores principais - Alterado de vermelho para azul */
+  --color-primary: #3490dc;         /* Azul principal (era vermelho #F61500) */
+  --color-primary-light: #4c9cf6;   /* Versão mais clara do azul (era #FF4433) */
+  --color-primary-dark: #2779bd;    /* Versão mais escura do azul (era #D01200) */
+  
+  /* Cores de fundo - Alterado o dark para branco */
+  --color-bg-light: #FDFDFC;        /* Fundo claro (modo light) */
+  --color-bg-dark: #ffffff;         /* Fundo escuro alterado para branco (era #0a0a0a) */
+  --color-card-light: #ffffff;      /* Fundo do cartão (modo light) */
+  --color-card-dark: #f8f9fa;       /* Fundo do cartão alterado para cinza claro (era #161615) */
+  
+  /* Cores de texto - Ajustado para legibilidade com o novo fundo */
+  --color-text-light: #1b1b18;      /* Texto principal (modo light) */
+  --color-text-dark: #333333;       /* Texto principal no modo dark - alterado para cinza escuro (era #EDEDEC) */
+  --color-text-muted-light: #706f6c;/* Texto secundário (modo light) */
+  --color-text-muted-dark: #6c757d; /* Texto secundário alterado para cinza (era #A1A09A) */
+  
+  /* Cores de borda */
+  --color-border-light: #e3e3e0;    /* Borda padrão (modo light) */
+  --color-border-dark: #dee2e6;     /* Borda padrão alterada para cinza claro (era #3E3E3A) */
+  --color-border-hover-light: #19140035; /* Borda hover (modo light) */
+  --color-border-hover-dark: #c1c9d0;    /* Borda hover alterada para cinza (era #62605b) */
+  
+  /* Cores de sombra - Ajustadas para o novo esquema */
+  --shadow-card-light: inset 0px 0px 0px 1px rgba(26, 26, 0, 0.16);
+  --shadow-card-dark: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0px 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  
+    
+    /* Espaçamentos */
+    --spacing-1: 0.25rem;   /* 4px */
+    --spacing-2: 0.5rem;    /* 8px */
+    --spacing-3: 0.75rem;   /* 12px */
+    --spacing-4: 1rem;      /* 16px */
+    --spacing-5: 1.25rem;   /* 20px */
+    --spacing-6: 1.5rem;    /* 24px */
+    --spacing-8: 2rem;      /* 32px */
+    --spacing-10: 2.5rem;   /* 40px */
+    --spacing-12: 3rem;     /* 48px */
+    --spacing-16: 4rem;     /* 64px */
+    --spacing-20: 5rem;     /* 80px */
+    
+    /* Tipografia */
+    --font-family-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    
+    /* Pesos da fonte */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Alturas de linha */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    
+    /* Bordas arredondadas */
+    --border-radius-sm: 0.25rem;  /* 4px */
+    --border-radius-md: 0.375rem; /* 6px */
+    --border-radius-lg: 0.5rem;   /* 8px */
+    --border-radius-full: 9999px;
+    
+    /* Transições */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+    --transition-slow: 0.5s ease-in-out;
+  }
