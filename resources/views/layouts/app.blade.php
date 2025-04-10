@@ -45,9 +45,18 @@
                     <i class="fas fa-cog"></i> <span>Configurações</span>
                     <i class="fas fa-chevron-down submenu-icon"></i>
                 </a>
+                <!-- Atualização do submenu de Configurações -->
                 <div class="sidebar-submenu" id="config-submenu">
-                    <a href="{{ route('permissions.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('permissions.*') ? 'active' : '' }}">
-                        <i class="fas fa-lock"></i> <span>Permissões</span>
+                    @can('permissions.view')
+                    <a href="{{ route('admin.permissions.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.permissions.*') ? 'active' : '' }}">
+                        <i class="fas fa-key"></i> <span>Permissões</span>
+                    </a>
+                    @endcan
+                    <a href="{{ route('admin.roles.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
+                        <i class="fas fa-user-tag"></i> <span>Roles</span>
+                    </a>
+                    <a href="{{ route('admin.ad-groups.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.ad-groups.*') ? 'active' : '' }}">
+                        <i class="fas fa-users-cog"></i> <span>Grupos AD</span>
                     </a>
                     <a href="#" class="sidebar-menu-item submenu-item">
                         <i class="fas fa-sliders-h"></i> <span>Geral</span>
@@ -122,6 +131,58 @@
                     e.preventDefault();
                     configMenu.classList.toggle('open');
                     configSubmenu.classList.toggle('open');
+                });
+            }
+        });
+
+
+                
+                // JavaScript para gerenciar o comportamento do submenu
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar em dispositivos móveis
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('mobile-visible');
+                });
+            }
+            
+            // Fechar sidebar ao clicar fora em dispositivos móveis
+            document.addEventListener('click', function(event) {
+                const isClickInsideSidebar = sidebar.contains(event.target);
+                const isClickOnToggle = sidebarToggle && sidebarToggle.contains(event.target);
+                
+                if (!isClickInsideSidebar && !isClickOnToggle && window.innerWidth <= 768) {
+                    sidebar.classList.remove('mobile-visible');
+                }
+            });
+            
+            // Gerenciamento do submenu de configurações
+            const configMenu = document.getElementById('config-menu');
+            const configSubmenu = document.getElementById('config-submenu');
+            
+            if (configMenu && configSubmenu) {
+                // Verificar se o submenu deve estar aberto (baseado na rota atual)
+                const isConfigRoute = window.location.pathname.includes('/admin/permissions') ||
+                                    window.location.pathname.includes('/admin/roles') ||
+                                    window.location.pathname.includes('/admin/ad-groups');
+                
+                if (isConfigRoute) {
+                    configMenu.classList.add('open');
+                    configSubmenu.style.display = 'block';
+                }
+                
+                configMenu.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    configMenu.classList.toggle('open');
+                    
+                    if (configSubmenu.style.display === 'block') {
+                        configSubmenu.style.display = 'none';
+                    } else {
+                        configSubmenu.style.display = 'block';
+                    }
                 });
             }
         });

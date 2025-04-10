@@ -35,7 +35,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'user_role');
     }
 
     /**

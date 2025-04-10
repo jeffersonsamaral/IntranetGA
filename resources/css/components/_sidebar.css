@@ -98,24 +98,31 @@
       margin-left: 0;
     }
 
-    .has-submenu {
-      position: relative;
-      cursor: pointer;
-  }
-  
-  .submenu-icon {
-      position: absolute;
-      right: var(--spacing-4);
-      transition: transform 0.3s ease;
-  }
-  
-  .has-submenu.open .submenu-icon {
-      transform: rotate(180deg);
-  }
-  
-  .sidebar-submenu {
+
+
+
+    
+
+    .sidebar-submenu {
       display: none;
       padding-left: var(--spacing-4);
       background-color: rgba(0, 0, 0, 0.02);
-  }
+    }
+    
+    .sidebar-submenu.open {
+        display: block;
+    }
+    
+    .sidebar-menu-item.submenu-item {
+        padding-left: var(--spacing-4);
+        font-size: var(--font-size-sm);
+    }
+    
+    .submenu-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .has-submenu.open .submenu-icon {
+        transform: rotate(180deg);
+    }
   }
