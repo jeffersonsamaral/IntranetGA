@@ -106,10 +106,8 @@ Route::middleware('auth')->group(function () {
             ->name('permissions.update');
 
 
-        Route::resource('board', BoardMessageController::class);
-            Route::post('/board/{board}/toggle-pin', [BoardMessageController::class, 'togglePin'])
-                ->middleware(CheckPermission::class . ':board.pin')
-                ->name('board.toggle-pin');
+        Route::resource('board', BoardMessageController::class)
+            ->middleware('permission:board.view');
         
         // Gerenciamento de Usuários
         Route::resource('users', UserController::class);

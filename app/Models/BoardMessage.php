@@ -9,37 +9,26 @@ class BoardMessage extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'content',
-        'author_id',
-        'board_id',
-        'is_pinned',
+        'user_id',  // Corrigir de author_id para user_id
         'is_active',
+        'is_pinned',
+        'attachment'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
-        'is_pinned' => 'boolean',
         'is_active' => 'boolean',
+        'is_pinned' => 'boolean'
     ];
 
-    /**
-     * Relacionamento com o autor (usuário)
-     */
-    public function author()
+    // Relacionamento com o usuário
+    public function user()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class);
     }
+
 
     /**
      * Relacionamento com o quadro (board)
