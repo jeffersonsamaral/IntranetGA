@@ -20,7 +20,7 @@ class AdGroupSyncService
             'updated' => 0,
             'total' => 0,
         ];
-
+    
         try {
             // Buscar todos os grupos do AD
             $ldapGroups = Group::get();
@@ -49,10 +49,10 @@ class AdGroupSyncService
                 }
             }
             
-            Log::info('Sincronização de grupos AD concluída', $stats);
+            \Log::info('Sincronização de grupos AD concluída', $stats);
             
         } catch (\Exception $e) {
-            Log::error('Erro na sincronização de grupos AD: ' . $e->getMessage());
+            \Log::error('Erro na sincronização de grupos AD: ' . $e->getMessage());
             throw $e;
         }
         

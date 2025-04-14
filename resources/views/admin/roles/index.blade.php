@@ -54,6 +54,11 @@
                             </td>
                             <td>{{ $role->permissions->count() }}</td>
                             <td>
+                                @can('roles.create')
+                                <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Nova Role
+                                </a>
+                                @endcan
                                 <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-sm btn-info" title="Visualizar">
                                     <i class="fas fa-eye"></i>
                                 </a>

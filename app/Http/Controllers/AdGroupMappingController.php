@@ -15,9 +15,7 @@ class AdGroupMappingController extends Controller
     public function __construct(AdGroupSyncService $adGroupSyncService)
     {
         $this->adGroupSyncService = $adGroupSyncService;
-        $this->middleware('permission:ad-groups.view')->only(['index', 'show']);
-        $this->middleware('permission:ad-groups.map')->only(['edit', 'update']);
-        $this->middleware('permission:ad-groups.sync')->only(['sync']);
+        // Remova as referências ao middleware aqui, já que agora são aplicadas diretamente nas rotas
     }
     
     /**
