@@ -52,7 +52,7 @@
                         <i class="fas fa-key"></i> <span>Permissões</span>
                     </a>
                     @endcan
-                    <a href="{{ route('admin.roles.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.roles.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
                         <i class="fas fa-user-tag"></i> <span>Roles</span>
                     </a>
                     <a href="{{ route('admin.ad-groups.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.ad-groups.*') ? 'active' : '' }}">

@@ -1,29 +1,11 @@
 <?php
 
 namespace App\Services;
-namespace App\Models;
 
 use App\Models\AccessPolicy;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Model;
-
-class AccessPolicy extends Model
-{
-    protected $fillable = [
-        'name',
-        'resource',
-        'action',
-        'conditions',
-        'is_active',
-    ];
-
-    protected $casts = [
-        'conditions' => 'array',
-        'is_active' => 'boolean',
-    ];
-}
 
 class AccessPolicyService
 {
