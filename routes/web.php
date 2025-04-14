@@ -89,6 +89,10 @@ Route::middleware('auth')->group(function () {
             ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.update');
         
+        Route::delete('/admin/users/{user}/roles/{role}', [UserController::class, 'removeRole'])
+            ->middleware('permission:roles.edit')
+            ->name('admin.users.remove-role');
+        
         // Gerenciamento de Políticas de Acesso
         Route::resource('policies', AccessPolicyController::class);
     });
@@ -96,4 +100,78 @@ Route::middleware('auth')->group(function () {
     // Gerenciamento de Usuários (protegido por permissão)
     Route::resource('users', UserController::class)
         ->middleware(CheckPermission::class . ':users.view');
+
+// Rota para garantir que o usuário tenha todas as permissões
+Route::get('/atribuir-permissoes', function () {
+    $user = auth()->user();
+    
+    // Verificar se a role admin existe ou criar
+    $adminRole = \App\Models\Role::where('slug', 'admin')->first();
+    
+    if (!$adminRole) {
+        $adminRole = \App\Models\Role::create([
+            'name' => 'Administrador',
+            'slug' => 'admin',
+            'description' => 'Acesso completo ao sistema',
+            'is_active' => true,
+        ]);
+    }
+    
+    // Verificar se existem permissões ou criar
+    $permissionSlugs = [
+        'users.view', 'users.create', 'users.edit', 'users.delete',
+        'roles.view', 'roles.create', 'roles.edit', 'roles.delete',
+        'permissions.view', 'permissions.assign',
+        'ad-groups.view', 'ad-groups.sync', 'ad-groups.map',
+        'policies.view', 'policies.create', 'policies.edit', 'policies.delete'
+    ];
+    
+    foreach ($permissionSlugs as $slug) {
+        $permission = \App\Models\Permission::where('slug', $slug)->first();
+        
+        if (!$permission) {
+            $name = ucwords(str_replace('.', ' ', $slug));
+            \App\Models\Permission::create([
+                'name' => $name,
+                'slug' => $slug,
+                'description' => 'Permissão para ' . strtolower($name),
+            ]);
+        }
+    }
+    
+    // Atribuir todas as permissões para a role admin
+    $allPermissions = \App\Models\Permission::all();
+    $adminRole->permissions()->sync($allPermissions->pluck('id')->toArray());
+    
+    // Atribuir a role admin ao usuário atual
+    $user->roles()->syncWithoutDetaching([$adminRole->id]);
+    
+    return redirect('/dashboard')->with('success', 'Permissões atribuídas com sucesso!');
+})->middleware('auth');
+
+
+
+// Rotas para gerenciamento de usuários
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    
+    // Rotas de recursos padrão
+    Route::resource('users', UserController::class);
+    
+    // Rota para remover uma role de um usuário
+    Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])
+        ->middleware('permission:roles.edit')
+        ->name('users.remove-role');
+    
+    // Rota para adicionar uma role a um usuário
+    Route::post('/users/{user}/roles', [UserController::class, 'addRole'])
+        ->middleware('permission:users.edit')
+        ->name('users.add-role');
+
+    // Rota para adicionar usuários a uma role
+    Route::post('/admin/roles/{role}/users', [RoleController::class, 'addUsers'])
+    ->middleware('permission:roles.edit')
+    ->name('admin.roles.add-users');
+
+});
+
 });

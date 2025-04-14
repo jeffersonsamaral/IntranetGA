@@ -149,4 +149,28 @@ class RoleController extends Controller
             ->route('admin.roles.index')
             ->with('success', 'Role removida com sucesso!');
     }
+
+
+        /**
+     * Adiciona usuários a uma role
+     */
+    public function addUsers(Request $request, Role $role)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id'
+        ]);
+        
+        $user = User::find($validated['user_id']);
+        
+        // Verificar se o usuário já tem a role
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role->id);
+        }
+        
+        return redirect()
+            ->route('admin.roles.show', $role)
+            ->with('success', "Usuário {$user->name} adicionado à role com sucesso!");
+    }
+
+
 }
