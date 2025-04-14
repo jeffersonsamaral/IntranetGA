@@ -97,6 +97,58 @@
                 </div>
             </div>
 
+            <!-- Seção de Grupos AD -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Grupos AD associados</h5>
+                    <span class="badge bg-primary">{{ $role->adGroups->count() }}</span>
+                </div>
+                <div class="card-body">
+                    @if($role->adGroups->isEmpty())
+                    <p class="text-muted">Nenhum grupo AD está associado a esta role.</p>
+                    @can('ad-groups.map')
+                    <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus"></i> Associar Grupos AD
+                    </a>
+                    @endcan
+                    @else
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($role->adGroups as $adGroup)
+                                <tr>
+                                    <td>{{ $adGroup->name }}</td>
+                                    <td>{{ Str::limit($adGroup->description, 50) }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.ad-groups.show', $adGroup) }}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @can('ad-groups.map')
+                                        <form action="{{ route('admin.roles.remove-ad-group', ['role' => $role->id, 'adGroup' => $adGroup->id]) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja remover este grupo AD da role?')">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                        @endcan
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
             <!-- Seção de Usuários -->
             <div class="card shadow-sm mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -148,81 +200,72 @@
                     @endif
                 </div>
             </div>
-
-            <!-- Seção de Grupos AD -->
+        </div>
+    </div>
+    
+    @can('roles.edit')
+    <!-- Seção para adicionar usuários -->
+    <div class="row mt-4">
+        <div class="col-12">
             <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Grupos AD associados</h5>
-                    <span class="badge bg-primary">{{ $role->adGroups->count() }}</span>
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Adicionar Usuários à Role</h5>
                 </div>
                 <div class="card-body">
-                    @if($role->adGroups->isEmpty())
-                    <p class="text-muted">Nenhum grupo AD está associado a esta role.</p>
-                    @else
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Descrição</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($role->adGroups as $adGroup)
-                                <tr>
-                                    <td>{{ $adGroup->name }}</td>
-                                    <td>{{ Str::limit($adGroup->description, 50) }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.ad-groups.show', $adGroup) }}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @endif
+                    <form action="{{ route('admin.roles.add-users', $role) }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select name="user_id" class="form-control" required>
+                                    <option value="">Selecione um usuário...</option>
+                                    @foreach(\App\Models\User::whereDoesntHave('roles', function($query) use ($role) {
+                                        $query->where('roles.id', $role->id);
+                                    })->get() as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->username }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     
-
-
-    @can('roles.edit')
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Adicionar Usuários à Role</h5>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('admin.roles.add-users', $role) }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-10">
-                            <select name="user_id" class="form-control" required>
-                                <option value="">Selecione um usuário...</option>
-                                @foreach(\App\Models\User::whereDoesntHave('roles', function($query) use ($role) {
-                                    $query->where('roles.id', $role->id);
-                                })->get() as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->username }})</option>
-                                @endforeach
-                            </select>
+    <!-- Seção para adicionar grupos AD -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Adicionar Grupos AD à Role</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.roles.add-ad-groups', $role) }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select name="ad_group_id" class="form-control" required>
+                                    <option value="">Selecione um grupo AD...</option>
+                                    @foreach(\App\Models\AdGroup::whereDoesntHave('roles', function($query) use ($role) {
+                                        $query->where('roles.id', $role->id);
+                                    })->orderBy('name')->get() as $adGroup)
+                                    <option value="{{ $adGroup->id }}">{{ $adGroup->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary w-100">Adicionar</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@endcan
-
+    @endcan
 
 </div>
 @endsection

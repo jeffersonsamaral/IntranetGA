@@ -62,6 +62,32 @@
                     </div>
                 </div>
 
+                <!-- Adição da seção de Grupos AD -->
+                <div class="mb-4">
+                    <label class="form-label">Grupos AD Associados</label>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> 
+                        Os usuários que pertencerem a estes grupos do Active Directory receberão automaticamente esta role.
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+                            @forelse($adGroups as $adGroup)
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="adgroup-{{ $adGroup->id }}" name="ad_groups[]" value="{{ $adGroup->id }}" {{ is_array(old('ad_groups')) && in_array($adGroup->id, old('ad_groups')) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="adgroup-{{ $adGroup->id }}">
+                                    {{ $adGroup->name }}
+                                </label>
+                                @if($adGroup->description)
+                                <div class="form-text">{{ $adGroup->description }}</div>
+                                @endif
+                            </div>
+                            @empty
+                            <p class="text-muted">Nenhum grupo AD disponível. Sincronize os grupos primeiro.</p>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary me-2">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Criar Role</button>

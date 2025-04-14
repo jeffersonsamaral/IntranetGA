@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdGroup;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
-    // Removemos a aplicação de middleware do construtor
-    // já que agora aplicamos diretamente nas rotas
-    
     /**
      * Exibe a lista de roles
      */
@@ -28,7 +27,8 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('admin.roles.create', compact('permissions'));
+        $adGroups = AdGroup::orderBy('name')->get();
+        return view('admin.roles.create', compact('permissions', 'adGroups'));
     }
     
     /**
@@ -41,7 +41,9 @@ class RoleController extends Controller
             'description' => 'nullable|string',
             'is_active' => 'boolean',
             'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id'
+            'permissions.*' => 'exists:permissions,id',
+            'ad_groups' => 'array',
+            'ad_groups.*' => 'exists:ad_groups,id'
         ]);
         
         // Gerar slug a partir do nome
@@ -68,6 +70,11 @@ class RoleController extends Controller
             $role->permissions()->sync($validated['permissions']);
         }
         
+        // Sincronizar grupos AD
+        if (isset($validated['ad_groups'])) {
+            $role->adGroups()->sync($validated['ad_groups']);
+        }
+        
         Log::info("Nova role criada: {$role->name}");
         
         return redirect()
@@ -90,8 +97,9 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-        $role->load('permissions');
-        return view('admin.roles.edit', compact('role', 'permissions'));
+        $adGroups = AdGroup::orderBy('name')->get();
+        $role->load('permissions', 'adGroups');
+        return view('admin.roles.edit', compact('role', 'permissions', 'adGroups'));
     }
     
     /**
@@ -104,7 +112,9 @@ class RoleController extends Controller
             'description' => 'nullable|string',
             'is_active' => 'boolean',
             'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id'
+            'permissions.*' => 'exists:permissions,id',
+            'ad_groups' => 'array',
+            'ad_groups.*' => 'exists:ad_groups,id'
         ]);
         
         // Atualizar a role
@@ -119,6 +129,13 @@ class RoleController extends Controller
             $role->permissions()->sync($validated['permissions']);
         } else {
             $role->permissions()->detach();
+        }
+        
+        // Sincronizar grupos AD
+        if (isset($validated['ad_groups'])) {
+            $role->adGroups()->sync($validated['ad_groups']);
+        } else {
+            $role->adGroups()->detach();
         }
         
         Log::info("Role atualizada: {$role->name}");
@@ -150,8 +167,7 @@ class RoleController extends Controller
             ->with('success', 'Role removida com sucesso!');
     }
 
-
-        /**
+    /**
      * Adiciona usuários a uma role
      */
     public function addUsers(Request $request, Role $role)
@@ -171,6 +187,41 @@ class RoleController extends Controller
             ->route('admin.roles.show', $role)
             ->with('success', "Usuário {$user->name} adicionado à role com sucesso!");
     }
+
+            /**
+         * Remove um grupo AD de uma role
+         */
+        public function removeAdGroup(Role $role, AdGroup $adGroup)
+        {
+            $role->adGroups()->detach($adGroup->id);
+            
+            Log::info("Grupo AD {$adGroup->name} removido da role {$role->name}");
+            
+            return redirect()
+                ->route('admin.roles.show', $role)
+                ->with('success', "Grupo AD removido da role com sucesso!");
+        }
+
+        /**
+ * Adiciona grupos AD a uma role
+ */
+public function addAdGroups(Request $request, Role $role)
+{
+    $validated = $request->validate([
+        'ad_group_id' => 'required|exists:ad_groups,id'
+    ]);
+    
+    $adGroup = AdGroup::find($validated['ad_group_id']);
+    
+    // Verificar se a role já tem o grupo AD
+    if (!$role->adGroups->contains($adGroup->id)) {
+        $role->adGroups()->attach($adGroup->id);
+    }
+    
+    return redirect()
+        ->route('admin.roles.show', $role)
+        ->with('success', "Grupo AD {$adGroup->name} adicionado à role com sucesso!");
+}
 
 
 }

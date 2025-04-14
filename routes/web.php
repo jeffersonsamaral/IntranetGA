@@ -126,6 +126,18 @@ Route::middleware('auth')->group(function () {
     Route::put('/ad-groups/{adGroup}', [AdGroupMappingController::class, 'update'])
         ->middleware(CheckPermission::class . ':ad-groups.map')
         ->name('ad-groups.update');
+
+    Route::delete('/roles/{role}/ad-groups/{adGroup}', [RoleController::class, 'removeAdGroup'])
+        ->middleware(CheckPermission::class . ':roles.edit')
+        ->name('admin.roles.remove-ad-group');
+
+    Route::post('/roles/{role}/ad-groups', [RoleController::class, 'addAdGroups'])
+        ->middleware(CheckPermission::class . ':roles.edit')
+        ->name('admin.roles.add-ad-groups');
+    
+    Route::delete('/roles/{role}/ad-groups/{adGroup}', [RoleController::class, 'removeAdGroup'])
+        ->middleware(CheckPermission::class . ':roles.edit')
+        ->name('admin.roles.remove-ad-group');
         
         
         // Gerenciamento de Roles

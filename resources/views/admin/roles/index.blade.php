@@ -6,11 +6,9 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Gerenciamento de Roles</h1>
-        @can('roles.create')
         <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Nova Role
         </a>
-        @endcan
     </div>
 
     @if(session('success'))
@@ -54,20 +52,12 @@
                             </td>
                             <td>{{ $role->permissions->count() }}</td>
                             <td>
-                                @can('roles.create')
-                                <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i> Nova Role
-                                </a>
-                                @endcan
                                 <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-sm btn-info" title="Visualizar">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                @can('roles.edit')
                                 <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-primary" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                @endcan
-                                @can('roles.delete')
                                 <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -75,7 +65,6 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-                                @endcan
                             </td>
                         </tr>
                         @empty
