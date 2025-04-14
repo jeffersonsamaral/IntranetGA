@@ -1,4 +1,5 @@
 <?php
+// routes/web.php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AccessPolicyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DebugRolesController;
+use App\Http\Middleware\CheckPermission;
 
 // Rotas de autenticação
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -27,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         // Gerenciamento de Grupos AD
         Route::get('/ad-groups/sync', [AdGroupMappingController::class, 'sync'])
-            ->middleware('permission:ad-groups.sync')
+            ->middleware(CheckPermission::class . ':ad-groups.sync')
             ->name('ad-groups.sync');
             
         Route::resource('ad-groups', AdGroupMappingController::class)
@@ -35,56 +37,56 @@ Route::middleware('auth')->group(function () {
         
         // Gerenciamento de Roles com middlewares aplicados diretamente nas rotas
         Route::get('/roles', [RoleController::class, 'index'])
-            ->middleware('permission:roles.view')
+            ->middleware(CheckPermission::class . ':roles.view')
             ->name('roles.index');
             
         Route::get('/roles/create', [RoleController::class, 'create'])
-            ->middleware('permission:roles.create')
+            ->middleware(CheckPermission::class . ':roles.create')
             ->name('roles.create');
             
         Route::post('/roles', [RoleController::class, 'store'])
-            ->middleware('permission:roles.create')
+            ->middleware(CheckPermission::class . ':roles.create')
             ->name('roles.store');
             
         Route::get('/roles/{role}', [RoleController::class, 'show'])
-            ->middleware('permission:roles.view')
+            ->middleware(CheckPermission::class . ':roles.view')
             ->name('roles.show');
             
         Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])
-            ->middleware('permission:roles.edit')
+            ->middleware(CheckPermission::class . ':roles.edit')
             ->name('roles.edit');
             
         Route::put('/roles/{role}', [RoleController::class, 'update'])
-            ->middleware('permission:roles.edit')
+            ->middleware(CheckPermission::class . ':roles.edit')
             ->name('roles.update');
             
         Route::delete('/roles/{role}', [RoleController::class, 'destroy'])
-            ->middleware('permission:roles.delete')
+            ->middleware(CheckPermission::class . ':roles.delete')
             ->name('roles.destroy');
         
         // Gerenciamento de Permissões com middlewares aplicados diretamente nas rotas
         Route::get('/permissions', [PermissionController::class, 'index'])
-            ->middleware('permission:permissions.view')
+            ->middleware(CheckPermission::class . ':permissions.view')
             ->name('permissions.index');
             
         Route::get('/permissions/create', [PermissionController::class, 'create'])
-            ->middleware('permission:permissions.assign')
+            ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.create');
             
         Route::post('/permissions', [PermissionController::class, 'store'])
-            ->middleware('permission:permissions.assign')
+            ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.store');
             
         Route::get('/permissions/{permission}', [PermissionController::class, 'show'])
-            ->middleware('permission:permissions.view')
+            ->middleware(CheckPermission::class . ':permissions.view')
             ->name('permissions.show');
             
         Route::get('/permissions/{permission}/edit', [PermissionController::class, 'edit'])
-            ->middleware('permission:permissions.assign')
+            ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.edit');
             
         Route::put('/permissions/{permission}', [PermissionController::class, 'update'])
-            ->middleware('permission:permissions.assign')
+            ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.update');
         
         // Gerenciamento de Políticas de Acesso
@@ -93,5 +95,5 @@ Route::middleware('auth')->group(function () {
     
     // Gerenciamento de Usuários (protegido por permissão)
     Route::resource('users', UserController::class)
-        ->middleware('permission:users.view');
+        ->middleware(CheckPermission::class . ':users.view');
 });

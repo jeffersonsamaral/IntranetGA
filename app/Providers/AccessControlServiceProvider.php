@@ -31,10 +31,10 @@ class AccessControlServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Registrar os middlewares
-        $router = $this->app['router'];
-        $router->aliasMiddleware('permission', CheckPermission::class);
-        $router->aliasMiddleware('role', CheckRole::class);
+        // Remover este bloco que está duplicando o registro dos middlewares
+        // $router = $this->app['router'];
+        // $router->aliasMiddleware('permission', CheckPermission::class);
+        // $router->aliasMiddleware('role', CheckRole::class);
 
         // Definir os Gates para permissões
         Gate::before(function ($user, $ability) {
