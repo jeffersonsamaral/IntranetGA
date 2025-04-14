@@ -29,23 +29,20 @@
                 <a href="{{ route('dashboard') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-menu-item">
+                <a href="{{ route('profile') }}" class="sidebar-menu-item {{ request()->routeIs('profile') ? 'active' : '' }}">
                     <i class="fas fa-user"></i> <span>Perfil</span>
                 </a>
-                <a href="#" class="sidebar-menu-item">
-                    <i class="fas fa-file-alt"></i> <span>Documentos</span>
+                <a href="{{ route('admin.board.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.board.*') ? 'active' : '' }}">
+                    <i class="fas fa-clipboard"></i> <span>Mural de Recados</span>
                 </a>
-                <a href="#" class="sidebar-menu-item">
-                    <i class="fas fa-calendar"></i> <span>Agenda</span>
-                </a>
-                <a href="#" class="sidebar-menu-item">
-                    <i class="fas fa-users"></i> <span>Equipe</span>
+                <a href="{{ route('admin.board.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.board.*') ? 'active' : '' }}">
+                    <i class="fas fa-clipboard-list"></i> <span>Mural de Recados</span>
                 </a>
                 <a href="#" class="sidebar-menu-item has-submenu" id="config-menu">
                     <i class="fas fa-cog"></i> <span>Configurações</span>
                     <i class="fas fa-chevron-down submenu-icon"></i>
                 </a>
-                <!-- Atualização do submenu de Configurações -->
+                <!-- Submenu de Configurações -->
                 <div class="sidebar-submenu" id="config-submenu">
                     @can('permissions.view')
                     <a href="{{ route('admin.permissions.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.permissions.*') ? 'active' : '' }}">
@@ -58,11 +55,8 @@
                     <a href="{{ route('admin.ad-groups.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.ad-groups.*') ? 'active' : '' }}">
                         <i class="fas fa-users-cog"></i> <span>Grupos AD</span>
                     </a>
-                    <a href="#" class="sidebar-menu-item submenu-item">
-                        <i class="fas fa-sliders-h"></i> <span>Geral</span>
-                    </a>
                 </div>
-            </nav>
+            </nav>  
             <div class="sidebar-footer">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

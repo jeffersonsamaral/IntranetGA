@@ -1,0 +1,50 @@
+// resources/css/components/_board.css
+/* Estilos para o Mural de Recados */
+
+.board-messages .card.border-primary {
+  border-width: 2px;
+  border-color: var(--color-primary);
+}
+
+.board-messages .card-header .fa-thumbtack {
+  transform: rotate(45deg);
+  margin-right: 5px;
+}
+
+.board-content {
+  min-height: 120px;
+}
+
+.board-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.message-item {
+  position: relative;
+}
+
+.message-item .fa-thumbtack {
+  transform: rotate(45deg);
+  font-size: 0.8em;
+}
+
+.dashboard-card.board-card {
+  border-left: 4px solid var(--color-primary);
+}
+
+.board-preview {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.board-preview .message-item:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
+/* No modo escuro */
+@media (prefers-color-scheme: dark) {
+  .board-preview .message-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

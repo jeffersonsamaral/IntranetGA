@@ -29,6 +29,8 @@
   --shadow-card-dark: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
   --shadow-dropdown: 0px 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
   
+  /* Versão RGB da cor primária para uso com transparência */
+  --color-primary-rgb: 52, 144, 220;  /* RGB equivalente ao azul #3490dc */
     
     /* Espaçamentos */
     --spacing-1: 0.25rem;   /* 4px */

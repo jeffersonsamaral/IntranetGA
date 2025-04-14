@@ -19,6 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Adicionar a rota do perfil
+    Route::get('/profile', function () {
+    return view('profile.index');
+    })->name('profile');
     
     // Rotas administrativas unificadas
     Route::prefix('admin')->name('admin.')->group(function () {
@@ -97,8 +102,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/permissions/{permission}', [PermissionController::class, 'update'])
             ->middleware(CheckPermission::class . ':permissions.assign')
             ->name('permissions.update');
+
+
+        Route::resource('board', BoardMessageController::class);
+            Route::post('/board/{board}/toggle-pin', [BoardMessageController::class, 'togglePin'])
+                ->middleware(CheckPermission::class . ':board.pin')
+                ->name('board.toggle-pin');
         
         // Gerenciamento de Usuários
         Route::resource('users', UserController::class);
+
+        
     });
 });

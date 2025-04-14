@@ -47,8 +47,8 @@ class RoleSeeder extends Seeder
         
         $managerRole->permissions()->sync($managerPermissions->pluck('id')->toArray());
 
-        // Criar role de usuário
-        $userRole = Role::updateOrCreate(
+        // Criar role de usuário padrão
+        $defaultUserRole = Role::updateOrCreate(
             ['slug' => 'user'],
             [
                 'name' => 'Usuário',
@@ -62,6 +62,6 @@ class RoleSeeder extends Seeder
             'users.view',
         ])->get();
         
-        $userRole->permissions()->sync($userPermissions->pluck('id')->toArray());
+        $defaultUserRole->permissions()->sync($userPermissions->pluck('id')->toArray());
     }
 }

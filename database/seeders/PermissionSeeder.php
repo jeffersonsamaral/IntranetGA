@@ -117,13 +117,44 @@ class PermissionSeeder extends Seeder
             ],
         ];
 
+        $boardPermissions = [
+            [
+                'name' => 'Listar Recados',
+                'slug' => 'board.view',
+                'description' => 'Ver os recados do mural',
+            ],
+            [
+                'name' => 'Criar Recados',
+                'slug' => 'board.create',
+                'description' => 'Criar novos recados no mural',
+            ],
+            [
+                'name' => 'Editar Recados',
+                'slug' => 'board.edit',
+                'description' => 'Editar recados existentes',
+            ],
+            [
+                'name' => 'Excluir Recados',
+                'slug' => 'board.delete',
+                'description' => 'Excluir recados do mural',
+            ],
+            [
+                'name' => 'Fixar Recados',
+                'slug' => 'board.pin',
+                'description' => 'Fixar recados importantes no topo',
+            ],
+        ];
+
+
+
         // Juntar todas as permissões e criar no banco
         $allPermissions = array_merge(
             $userPermissions,
             $rolePermissions,
             $permissionPermissions,
             $adGroupPermissions,
-            $policyPermissions
+            $policyPermissions,
+            $boardPermissions 
         );
 
         foreach ($allPermissions as $permission) {
