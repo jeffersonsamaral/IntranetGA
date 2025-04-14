@@ -33,9 +33,6 @@
                     <i class="fas fa-user"></i> <span>Perfil</span>
                 </a>
                 <a href="{{ route('admin.board.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.board.*') ? 'active' : '' }}">
-                    <i class="fas fa-clipboard"></i> <span>Mural de Recados</span>
-                </a>
-                <a href="{{ route('admin.board.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.board.*') ? 'active' : '' }}">
                     <i class="fas fa-clipboard-list"></i> <span>Mural de Recados</span>
                 </a>
                 <a href="#" class="sidebar-menu-item has-submenu" id="config-menu">

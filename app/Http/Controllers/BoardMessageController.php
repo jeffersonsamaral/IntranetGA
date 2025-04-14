@@ -1,4 +1,3 @@
-// app/Http/Controllers/BoardMessageController.php
 <?php
 
 namespace App\Http\Controllers;
