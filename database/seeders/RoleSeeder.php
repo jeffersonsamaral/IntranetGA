@@ -42,6 +42,7 @@ class RoleSeeder extends Seeder
             'users.view', 'users.create', 'users.edit',
             'roles.view',
             'ad-groups.view',
+            'board.view', 'board.create', 'board.edit',
             'policies.view',
         ])->get();
         
@@ -60,6 +61,7 @@ class RoleSeeder extends Seeder
         // Permissões básicas para usuários comuns
         $userPermissions = Permission::whereIn('slug', [
             'users.view',
+            'board.view',
         ])->get();
         
         $defaultUserRole->permissions()->sync($userPermissions->pluck('id')->toArray());

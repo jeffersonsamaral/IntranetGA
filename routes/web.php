@@ -7,8 +7,8 @@ use App\Http\Controllers\AdGroupMappingController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\CheckPermission;
 use App\Http\Controllers\BoardMessageController;
+use App\Http\Middleware\CheckPermission;
 use App\Models\BoardMessage;
 
 // Rotas de autenticação

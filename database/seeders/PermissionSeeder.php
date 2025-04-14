@@ -145,8 +145,6 @@ class PermissionSeeder extends Seeder
             ],
         ];
 
-
-
         // Juntar todas as permissões e criar no banco
         $allPermissions = array_merge(
             $userPermissions,
