@@ -52,9 +52,9 @@ class Role extends Model
     {
         // Verifica por slug ou por objeto
         if (is_string($permission)) {
-            return $this->permissions->contains('slug', $permission);
+            return $this->permissions()->where('slug', $permission)->exists();
         }
         
-        return $this->permissions->contains('id', $permission->id);
+        return $this->permissions()->where('id', $permission->id)->exists();
     }
 }

@@ -15,37 +15,39 @@ class RoleController extends Controller
     /**
      * Exibe a lista de roles
      */
+    // Exemplo para o método index
     public function index()
     {
+        // Verificar permissão manualmente
+        if (!auth()->user()->hasPermission('roles.view')) {
+            abort(403, 'Acesso não autorizado.');
+        }
+        
         $roles = Role::with('permissions')->paginate(15);
         return view('admin.roles.index', compact('roles'));
     }
 
-    public function __construct()
-    {
-        // Aplicação dos middlewares diretamente no controller
-        $this->middleware('auth');
-        $this->middleware('permission:roles.view')->only(['index', 'show']);
-        $this->middleware('permission:roles.create')->only(['create', 'store']);
-        $this->middleware('permission:roles.edit')->only(['edit', 'update', 'addUsers', 'addAdGroups']);
-        $this->middleware('permission:roles.delete')->only(['destroy']);
-    }
-    
-    /**
-     * Exibe o formulário para criar uma nova role
-     */
+    // Exemplo para o método create
     public function create()
     {
+        // Verificar permissão manualmente
+        if (!auth()->user()->hasPermission('roles.create')) {
+            abort(403, 'Acesso não autorizado.');
+        }
+        
         $permissions = Permission::all();
         $adGroups = AdGroup::orderBy('name')->get();
         return view('admin.roles.create', compact('permissions', 'adGroups'));
     }
-    
-    /**
-     * Armazena uma nova role
-     */
+
+    // Exemplo para o método store
     public function store(Request $request)
     {
+        // Verificar permissão manualmente
+        if (!auth()->user()->hasPermission('roles.create')) {
+            abort(403, 'Acesso não autorizado.');
+        }
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',

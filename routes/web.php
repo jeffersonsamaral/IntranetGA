@@ -32,11 +32,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/ad-groups/sync', [AdGroupMappingController::class, 'sync'])->name('ad-groups.sync');
         Route::resource('ad-groups', AdGroupMappingController::class);
         
-        // Gerenciamento de Roles
-        Route::resource('roles', RoleController::class);
-        Route::post('/roles/{role}/add-users', [RoleController::class, 'addUsers'])->name('roles.add-users');
-        Route::post('/roles/{role}/add-ad-groups', [RoleController::class, 'addAdGroups'])->name('roles.add-ad-groups');
-        Route::delete('/roles/{role}/ad-groups/{adGroup}', [RoleController::class, 'removeAdGroup'])->name('roles.remove-ad-group');
+        // Gerenciamento de Roles - sem middleware
+        Route::resource('roles', RoleController::class)->names('admin.roles');
+        Route::post('/roles/{role}/add-users', [RoleController::class, 'addUsers'])->name('admin.roles.add-users');
+        Route::post('/roles/{role}/add-ad-groups', [RoleController::class, 'addAdGroups'])->name('admin.roles.add-ad-groups');
+        Route::delete('/roles/{role}/ad-groups/{adGroup}', [RoleController::class, 'removeAdGroup'])->name('admin.roles.remove-ad-group');
         
         // Gerenciamento de Permissões
         Route::resource('permissions', PermissionController::class);
