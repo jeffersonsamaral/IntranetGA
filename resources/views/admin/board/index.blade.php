@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Mural de Recados</h1>
         @can('board.create')
-        <a href="{{ route('admin.board.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
             <i class="fas fa-plus"></i> Novo Recado
         </a>
         @endcan
