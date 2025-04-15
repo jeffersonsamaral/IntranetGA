@@ -1,4 +1,4 @@
-// resources/views/admin/board/index.blade.php
+
 @extends('layouts.app')
 
 @section('title', 'Mural de Recados')

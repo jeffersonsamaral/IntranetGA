@@ -1,4 +1,4 @@
-// resources/views/components/dashboard-board.blade.php
+
 <div class="dashboard-card board-card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title">
