@@ -17,8 +17,8 @@ class BoardMessage extends Model
     protected $fillable = [
         'title',
         'content',
-        'author_id',
-        'board_id',
+        'user_id',
+        'attachment',
         'is_pinned',
         'is_active',
     ];
@@ -34,19 +34,11 @@ class BoardMessage extends Model
     ];
 
     /**
-     * Relacionamento com o autor (usuário)
+     * Relacionamento com o usuário
      */
-    public function author()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    /**
-     * Relacionamento com o quadro (board)
-     */
-    public function board()
-    {
-        return $this->belongsTo(Board::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
