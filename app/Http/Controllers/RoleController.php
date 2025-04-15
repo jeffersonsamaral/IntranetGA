@@ -20,6 +20,16 @@ class RoleController extends Controller
         $roles = Role::with('permissions')->paginate(15);
         return view('admin.roles.index', compact('roles'));
     }
+
+    public function __construct()
+    {
+        // Aplicação dos middlewares diretamente no controller
+        $this->middleware('auth');
+        $this->middleware('permission:roles.view')->only(['index', 'show']);
+        $this->middleware('permission:roles.create')->only(['create', 'store']);
+        $this->middleware('permission:roles.edit')->only(['edit', 'update', 'addUsers', 'addAdGroups']);
+        $this->middleware('permission:roles.delete')->only(['destroy']);
+    }
     
     /**
      * Exibe o formulário para criar uma nova role

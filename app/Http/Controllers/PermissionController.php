@@ -20,6 +20,14 @@ class PermissionController extends Controller
         $permissions = Permission::orderBy('name')->paginate(15);
         return view('admin.permissions.index', compact('permissions'));
     }
+
+    public function __construct()
+    {
+        // Aplicação dos middlewares diretamente no controller
+        $this->middleware('auth');
+        $this->middleware('permission:permissions.view')->only(['index', 'show']);
+        $this->middleware('permission:permissions.assign')->only(['edit', 'update', 'create', 'store']);
+    }
     
     /**
      * Exibe detalhes de uma permissão específica

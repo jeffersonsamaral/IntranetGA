@@ -12,10 +12,11 @@ class AdGroupMappingController extends Controller
 {
     protected $adGroupSyncService;
     
-    public function __construct(AdGroupSyncService $adGroupSyncService)
+    public function __construct()
     {
-        $this->adGroupSyncService = $adGroupSyncService;
-        // Remova as referências ao middleware aqui, já que agora são aplicadas diretamente nas rotas
+        $this->adGroupSyncService = app(AdGroupSyncService::class);
+        // Aplicação dos middlewares diretamente no controller
+        $this->middleware('auth');
     }
     
     /**
