@@ -18,6 +18,7 @@ class BoardMessageController extends Controller
         $this->middleware('permission:board.create')->only(['create', 'store']);
         $this->middleware('permission:board.edit')->only(['edit', 'update']);
         $this->middleware('permission:board.delete')->only(['destroy']);
+        $this->middleware('permission:board.pin')->only(['togglePin']);
     }
 
     /**

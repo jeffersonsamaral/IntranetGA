@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
     // Adicionar a rota do perfil
     Route::get('/profile', function () {
-    return view('profile.index');
+        return view('profile.index');
     })->name('profile');
     
     // Rotas administrativas unificadas
@@ -32,91 +32,113 @@ Route::middleware('auth')->group(function () {
         
         // Gerenciamento de Grupos AD
         Route::get('/ad-groups/sync', [AdGroupMappingController::class, 'sync'])
-            ->middleware('ad-groups.sync')
+            ->middleware('permission:ad-groups.sync')
             ->name('ad-groups.sync');
                 
         Route::get('/ad-groups', [AdGroupMappingController::class, 'index'])
-            ->middleware('ad-groups.view')
+            ->middleware('permission:ad-groups.view')
             ->name('ad-groups.index');
         
         Route::get('/ad-groups/{adGroup}', [AdGroupMappingController::class, 'show'])
-            ->middleware('ad-groups.view')
+            ->middleware('permission:ad-groups.view')
             ->name('ad-groups.show');
         
         Route::get('/ad-groups/{adGroup}/edit', [AdGroupMappingController::class, 'edit'])
-            ->middleware('ad-groups.map')
+            ->middleware('permission:ad-groups.map')
             ->name('ad-groups.edit');
         
         Route::put('/ad-groups/{adGroup}', [AdGroupMappingController::class, 'update'])
-            ->middleware('ad-groups.map')
+            ->middleware('permission:ad-groups.map')
             ->name('ad-groups.update');
         
         // Gerenciamento de Roles
         Route::get('/roles', [RoleController::class, 'index'])
-            ->middleware('roles.view')
+            ->middleware('permission:roles.view')
             ->name('roles.index');
             
         Route::get('/roles/create', [RoleController::class, 'create'])
-            ->middleware('roles.create')
+            ->middleware('permission:roles.create')
             ->name('roles.create');
             
         Route::post('/roles', [RoleController::class, 'store'])
-            ->middleware('roles.create')
+            ->middleware('permission:roles.create')
             ->name('roles.store');
             
         Route::get('/roles/{role}', [RoleController::class, 'show'])
-            ->middleware('roles.view')
+            ->middleware('permission:roles.view')
             ->name('roles.show');
             
         Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])
-            ->middleware('roles.edit')
+            ->middleware('permission:roles.edit')
             ->name('roles.edit');
             
         Route::put('/roles/{role}', [RoleController::class, 'update'])
-            ->middleware('roles.edit')
+            ->middleware('permission:roles.edit')
             ->name('roles.update');
             
         Route::delete('/roles/{role}', [RoleController::class, 'destroy'])
-            ->middleware('roles.delete')
+            ->middleware('permission:roles.delete')
             ->name('roles.destroy');
             
         // Gerenciamento de Permissões
         Route::get('/permissions', [PermissionController::class, 'index'])
-            ->middleware('permissions.view')
+            ->middleware('permission:permissions.view')
             ->name('permissions.index');
             
         Route::get('/permissions/create', [PermissionController::class, 'create'])
-            ->middleware('permissions.assign')
+            ->middleware('permission:permissions.assign')
             ->name('permissions.create');
             
         Route::post('/permissions', [PermissionController::class, 'store'])
-            ->middleware('permissions.assign')
+            ->middleware('permission:permissions.assign')
             ->name('permissions.store');
             
         Route::get('/permissions/{permission}', [PermissionController::class, 'show'])
-            ->middleware('permissions.view')
+            ->middleware('permission:permissions.view')
             ->name('permissions.show');
             
         Route::get('/permissions/{permission}/edit', [PermissionController::class, 'edit'])
-            ->middleware('permissions.assign')
+            ->middleware('permission:permissions.assign')
             ->name('permissions.edit');
             
         Route::put('/permissions/{permission}', [PermissionController::class, 'update'])
-            ->middleware('permissions.assign')
+            ->middleware('permission:permissions.assign')
             ->name('permissions.update');
 
-
-        Route::resource('board', BoardMessageController::class);
+        // Mural de Recados
+        Route::get('/board', [BoardMessageController::class, 'index'])
+            ->middleware('permission:board.view')
+            ->name('board.index');
+            
+        Route::get('/board/create', [BoardMessageController::class, 'create'])
+            ->middleware('permission:board.create')
+            ->name('board.create');
+            
+        Route::post('/board', [BoardMessageController::class, 'store'])
+            ->middleware('permission:board.create')
+            ->name('board.store');
+            
+        Route::get('/board/{board}', [BoardMessageController::class, 'show'])
+            ->middleware('permission:board.view')
+            ->name('board.show');
+            
+        Route::get('/board/{board}/edit', [BoardMessageController::class, 'edit'])
+            ->middleware('permission:board.edit')
+            ->name('board.edit');
+            
+        Route::put('/board/{board}', [BoardMessageController::class, 'update'])
+            ->middleware('permission:board.edit')
+            ->name('board.update');
+            
+        Route::delete('/board/{board}', [BoardMessageController::class, 'destroy'])
+            ->middleware('permission:board.delete')
+            ->name('board.destroy');
+            
         Route::post('/board/{board}/toggle-pin', [BoardMessageController::class, 'togglePin'])
             ->middleware('permission:board.pin')
             ->name('board.toggle-pin');
-
-        Route::resource('board', BoardMessageController::class)->except(['show'])->middleware('permission:board.view');
-        Route::get('/board/{board}', [BoardMessageController::class, 'show'])->middleware('permission:board.view')->name('board.show');
         
         // Gerenciamento de Usuários
         Route::resource('users', UserController::class);
-
-        
     });
 });
