@@ -3,36 +3,30 @@
 @section('title', 'Meu Perfil - IntranetGA')
 
 @section('content')
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>
-            <i class="fas fa-user-circle text-primary me-2"></i>
-            Meu Perfil
-        </h1>
+<div class="dashboard-content">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Meu Perfil</h1>
     </div>
 
     <div class="row">
         <!-- Informações pessoais -->
-        <div class="col-lg-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-id-card me-2"></i>
-                        Informações do Usuário
-                    </h5>
+        <div class="col-lg-6 mb-4">
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-user-circle"></i>
                 </div>
-                <div class="card-body">
-                    <div class="text-center mb-3">
-                        <div class="avatar-circle mx-auto mb-3">
-                            <span class="avatar-initials">{{ substr(Auth::user()->name, 0, 1) }}</span>
-                        </div>
-                        <h4>{{ Auth::user()->name }}</h4>
-                    </div>
-                    
+                <h3 class="dashboard-card-title">Informações do Usuário</h3>
+                
+                <div class="mt-4">
                     <div class="user-info-grid">
                         <div class="info-item">
                             <i class="fas fa-user text-primary"></i>
                             <span>Usuário: {{ Auth::user()->username }}</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-id-card text-primary"></i>
+                            <span>Nome: {{ Auth::user()->name }}</span>
                         </div>
                         
                         <div class="info-item">
@@ -49,102 +43,102 @@
             </div>
         </div>
         
-        
+        <!-- Permissões e funções -->
+        <div class="col-lg-6 mb-4">
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="dashboard-card-title">Funções e Permissões</h3>
+                
+                <div class="mt-4">
+                    <h5 class="mb-3">Suas Permissões:</h5>
+                    <div class="role-badges mb-4">
+                        @forelse(Auth::user()->roles as $role)
+                            <span class="role-badge">
+                                <i class="fas fa-user-tag me-1"></i>
+                                {{ $role->name }}
+                            </span>
+                        @empty
+                            <p class="text-muted">Nenhuma função atribuída.</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-/* Estilo para o avatar circular */
-.avatar-circle {
-    width: 80px;
-    height: 80px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.avatar-initials {
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-/* Estilo para grid de informações do usuário */
+/* Estilos específicos para a página de perfil */
 .user-info-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 576px) {
+    .user-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .info-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
+    gap: 12px;
+    padding: 12px;
+    background-color: rgba(var(--color-primary-rgb), 0.03);
+    border-radius: var(--border-radius-md);
+    transition: all 0.2s ease;
+}
+
+.info-item:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.06);
 }
 
 .info-item i {
-    font-size: 14px;
+    font-size: 16px;
     width: 20px;
     text-align: center;
 }
 
-.info-item span {
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.role-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-/* Estilo para grid de atividades */
-.activities-grid {
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.permission-list {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 8px;
 }
 
-.activity-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
+@media (min-width: 576px) {
+    .permission-list {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-.activity-item:last-child {
-    border-bottom: none;
-}
-
-.activity-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+.permission-item {
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: white;
-}
-
-.activity-title {
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.activity-subtitle {
-    font-size: 12px;
-    color: #6c757d;
-}
-
-.activity-time {
-    font-size: 12px;
-    color: #6c757d;
-    white-space: nowrap;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    padding: 6px 0;
 }
 </style>
 @endsection

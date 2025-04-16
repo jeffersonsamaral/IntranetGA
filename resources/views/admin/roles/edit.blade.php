@@ -1,12 +1,12 @@
 {{-- resources/views/admin/roles/edit.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Editar Role')
+@section('title', 'Editar Regra')
 
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Editar Role: {{ $role->name }}</h1>
+        <h1>Editar Regra: {{ $role->name }}</h1>
         <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
@@ -68,7 +68,7 @@
                     <label class="form-label">Grupos AD Associados</label>
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle"></i> 
-                        Os usuários que pertencerem a estes grupos do Active Directory receberão automaticamente esta role.
+                        Os usuários que pertencerem a estes grupos do Active Directory receberão automaticamente esta Regra.
                     </div>
                     <div class="card">
                         <div class="card-body" style="max-height: 300px; overflow-y: auto;">

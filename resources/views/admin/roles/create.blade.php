@@ -1,12 +1,12 @@
 {{-- resources/views/admin/roles/create.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Criar Nova Role')
+@section('title', 'Criar Nova Regra')
 
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Criar Nova Role</h1>
+        <h1>Criar Nova Regra</h1>
         <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
@@ -23,7 +23,7 @@
                     @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <div class="form-text">Nome descritivo da role (ex: "Administrador", "Gerente")</div>
+                    <div class="form-text">Nome descritivo da Regra (ex: "Administrador", "Gerente")</div>
                 </div>
 
                 <div class="mb-3">
@@ -38,7 +38,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') == '1' ? 'checked' : '' }}>
                         <label class="form-check-label" for="is_active">
-                            Role ativa
+                            Regra ativa
                         </label>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <label class="form-label">Grupos AD Associados</label>
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle"></i> 
-                        Os usuários que pertencerem a estes grupos do Active Directory receberão automaticamente esta role.
+                        Os usuários que pertencerem a estes grupos do Active Directory receberão automaticamente esta Regra.
                     </div>
                     <div class="card">
                         <div class="card-body" style="max-height: 300px; overflow-y: auto;">

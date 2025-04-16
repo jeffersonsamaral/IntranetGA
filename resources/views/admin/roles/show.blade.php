@@ -1,12 +1,12 @@
 {{-- resources/views/admin/roles/show.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Detalhes da Role')
+@section('title', 'Detalhes da Regra')
 
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Detalhes da Role: {{ $role->name }}</h1>
+        <h1>Detalhes da Regra: {{ $role->name }}</h1>
         <div>
             <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> Voltar
@@ -29,7 +29,7 @@
         <div class="col-md-4">
             <div class="card shadow-sm mb-4">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Informações da Role</h5>
+                    <h5 class="card-title mb-0">Informações da Regra</h5>
                 </div>
                 <div class="card-body">
                     <dl class="row">
@@ -157,7 +157,7 @@
                 </div>
                 <div class="card-body">
                     @if($role->users->isEmpty())
-                    <p class="text-muted">Nenhum usuário possui esta role.</p>
+                    <p class="text-muted">Nenhum usuário possui esta Regra.</p>
                     @else
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -209,7 +209,7 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Adicionar Usuários à Role</h5>
+                    <h5 class="card-title mb-0">Adicionar Usuários à Regra</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.roles.add-users', $role) }}" method="POST">
@@ -240,7 +240,7 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Adicionar Grupos AD à Role</h5>
+                    <h5 class="card-title mb-0">Adicionar Grupos AD à Regra</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.roles.add-ad-groups', $role) }}" method="POST">
