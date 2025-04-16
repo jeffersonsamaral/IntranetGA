@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'IntranetGA')</title>
+    <title>@yield('title', 'Intranet')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,9 +21,10 @@
     @if(auth()->check())
         <!-- Sidebar / Menu Lateral -->
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-logo">
-                <!-- Espaço para o logotipo -->
-                <img src="{{ asset('images/logo.png') }}" alt="Logo IntranetGA" onerror="this.src='{{ asset('images/default-logo.png') }}'; this.onerror='';">
+            <div class="sidebar-top">
+                <button type="button" id="sidebar-toggle" class="btn-sidebar-toggle d-none d-md-block">
+                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-bars"></i>
+                </button>
             </div>
             <nav class="sidebar-menu">
                 <a href="{{ route('dashboard') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
@@ -57,20 +58,22 @@
             <div class="sidebar-footer">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-sm">
+                    <button type="submit" class="btn btn-sm btn-logout">
                         <i class="fas fa-sign-out-alt"></i> Sair
                     </button>
                 </form>
             </div>
         </aside>
         
-        <!-- Navbar Mobile - Só aparece em telas pequenas -->
-        <nav class="navbar d-md-none">
+        <!-- Navbar Superior - Presente em todas as telas -->
+        <nav class="top-navbar">
             <div class="navbar-container">
-                <button type="button" id="sidebar-toggle" class="btn">
+                <div class="navbar-left">
+                <button type="button" id="mobile-sidebar-toggle" class="mobile-menu-button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="{{ route('dashboard') }}" class="navbar-brand">IntranetGA</a>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo IntranetGA" class="navbar-logo" onerror="this.src='{{ asset('images/default-logo.png') }}'; this.onerror='';">
+                </div>
             </div>
         </nav>
     @endif
@@ -87,63 +90,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Toggle sidebar em dispositivos móveis
-            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
             const sidebar = document.getElementById('sidebar');
+            
+            if (mobileSidebarToggle) {
+                mobileSidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('mobile-visible');
+                });
+            }
+            
+            // Toggle de colapso do sidebar para desktop
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const dashboardContainer = document.querySelector('.dashboard-container');
             
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('mobile-visible');
+                    sidebar.classList.toggle('sidebar-collapsed');
+                    if (dashboardContainer) {
+                        dashboardContainer.classList.toggle('sidebar-collapsed-content');
+                    }
                 });
             }
             
             // Fechar sidebar ao clicar fora em dispositivos móveis
             document.addEventListener('click', function(event) {
                 const isClickInsideSidebar = sidebar.contains(event.target);
-                const isClickOnToggle = sidebarToggle && sidebarToggle.contains(event.target);
-                
-                if (!isClickInsideSidebar && !isClickOnToggle && window.innerWidth <= 768) {
-                    sidebar.classList.remove('mobile-visible');
-                }
-            });
-            
-            // Submenu toggle
-            const configMenu = document.getElementById('config-menu');
-            const configSubmenu = document.getElementById('config-submenu');
-            
-            if (configMenu && configSubmenu) {
-                // Verificar se o submenu deve estar aberto (baseado na rota atual)
-                const isPermissionsRoute = window.location.pathname.includes('/permissions');
-                if (isPermissionsRoute) {
-                    configMenu.classList.add('open');
-                    configSubmenu.classList.add('open');
-                }
-                
-                configMenu.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    configMenu.classList.toggle('open');
-                    configSubmenu.classList.toggle('open');
-                });
-            }
-        });
-
-
-                
-                // JavaScript para gerenciar o comportamento do submenu
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle sidebar em dispositivos móveis
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const sidebar = document.getElementById('sidebar');
-            
-            if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('mobile-visible');
-                });
-            }
-            
-            // Fechar sidebar ao clicar fora em dispositivos móveis
-            document.addEventListener('click', function(event) {
-                const isClickInsideSidebar = sidebar.contains(event.target);
-                const isClickOnToggle = sidebarToggle && sidebarToggle.contains(event.target);
+                const isClickOnToggle = mobileSidebarToggle && mobileSidebarToggle.contains(event.target);
                 
                 if (!isClickInsideSidebar && !isClickOnToggle && window.innerWidth <= 768) {
                     sidebar.classList.remove('mobile-visible');
@@ -163,6 +135,9 @@
                 if (isConfigRoute) {
                     configMenu.classList.add('open');
                     configSubmenu.style.display = 'block';
+                } else {
+                    // Define o menu como recolhido por padrão
+                    configSubmenu.style.display = 'none';
                 }
                 
                 configMenu.addEventListener('click', function(e) {

@@ -32,67 +32,24 @@
                     <div class="user-info-grid">
                         <div class="info-item">
                             <i class="fas fa-user text-primary"></i>
-                            <span>{{ Auth::user()->username }}</span>
+                            <span>Usuário: {{ Auth::user()->username }}</span>
                         </div>
                         
                         <div class="info-item">
                             <i class="fas fa-envelope text-primary"></i>
-                            <span>{{ Auth::user()->email ?: 'Não informado' }}</span>
+                            <span>E-mail: {{ Auth::user()->email ?: 'Não informado' }}</span>
                         </div>
-                        
-                        <div class="info-item">
-                            <i class="fas fa-calendar-alt text-primary"></i>
-                            <span>{{ Auth::user()->created_at->format('d/m/Y') }}</span>
-                        </div>
-                        
+                                               
                         <div class="info-item">
                             <i class="fas fa-clock text-primary"></i>
-                            <span>{{ Auth::user()->updated_at->format('d/m/Y H:i') }}</span>
+                            <span>Última Atualização: {{ Auth::user()->updated_at->format('d/m/Y H:i') }}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Permissões -->
-        <div class="col-lg-8 mb-4">
-            @include('components.user-permissions', ['user' => Auth::user()])
-            
-            <!-- Atividades Recentes -->
-            <div class="card shadow-sm mt-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-history text-primary me-2"></i>
-                        Atividades Recentes
-                    </h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="activities-grid">
-                        <div class="activity-item">
-                            <div class="activity-icon bg-success">
-                                <i class="fas fa-sign-in-alt"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">Login realizado</div>
-                                <div class="activity-subtitle">Acesso ao sistema</div>
-                            </div>
-                            <div class="activity-time">{{ now()->format('d/m H:i') }}</div>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-icon bg-primary">
-                                <i class="fas fa-sync"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">Sincronização do AD</div>
-                                <div class="activity-subtitle">Grupos atualizados</div>
-                            </div>
-                            <div class="activity-time">{{ now()->subHours(2)->format('d/m H:i') }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 

@@ -1,17 +1,16 @@
-
 <div class="dashboard-card board-card mb-4">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header">
         <h5 class="card-title">
-            <i class="fas fa-clipboard-list text-primary"></i> 
+            <i class="fas fa-clipboard-list text-primary me-2"></i> 
             Mural de Recados
         </h5>
         @can('board.create')
         <div>
             <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
-                <i class="fas fa-plus"></i> Novo Recado
+                <i class="fas fa-plus me-1"></i> Novo Recado
             </a>
-            <a href="{{ route('admin.board.index') }}" class="btn btn-sm btn-outline-primary ms-1">
-                <i class="fas fa-list"></i> Ver Todos
+            <a href="{{ route('admin.board.index') }}" class="btn btn-sm btn-outline ms-1">
+                <i class="fas fa-list me-1"></i> Ver Todos
             </a>
         </div>
         @endcan
@@ -42,7 +41,7 @@
                     @can('board.create')
                     <p class="mt-2">
                         <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-plus"></i> Criar primeiro recado
+                            <i class="fas fa-plus me-1"></i> Criar primeiro recado
                         </a>
                     </p>
                     @endcan
@@ -54,7 +53,7 @@
                         <div class="d-flex w-100 justify-content-between">
                             <h6 class="mb-1">
                                 @if($message->is_pinned)
-                                <i class="fas fa-thumbtack text-primary"></i> 
+                                <i class="fas fa-thumbtack text-primary me-1"></i> 
                                 @endif
                                 {{ $message->title }}
                             </h6>
@@ -73,8 +72,8 @@
                 
                 @if(count($messages) > 0)
                 <div class="text-center py-2 border-top">
-                    <a href="{{ route('admin.board.index') }}" class="text-decoration-none">
-                        Ver todos os recados <i class="fas fa-arrow-right"></i>
+                    <a href="{{ route('admin.board.index') }}" class="text-decoration-none text-primary">
+                        Ver todos os recados <i class="fas fa-arrow-right ms-1"></i>
                     </a>
                 </div>
                 @endif
