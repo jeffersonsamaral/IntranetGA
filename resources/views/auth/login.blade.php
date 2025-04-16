@@ -4,10 +4,12 @@
 @section('title', 'Login - IntranetGA')
 
 @section('content')
+<div>
+<img src="{{ asset('images/logo.png') }}" width="600" heigth="200" alt="Logo Intranet" onerror="this.src='{{ asset('images/default-logo.png') }}'; this.onerror='';">
 <div class="login-card">
     <div class="login-header">
-        <h1 class="login-title">IntranetGA</h1>
-        <p class="text-white">Faça login para acessar o sistema</p>
+        <h1 class="login-title">INTRANET</h1>
+        <p class="text-white">Grupo Amplitec</p>
     </div>
     <div class="login-body">
         @if($errors->any())
@@ -48,5 +50,6 @@
     <div class="login-footer">
         &copy; {{ date('Y') }} IntranetGA - Todos os direitos reservados
     </div>
+</div>
 </div>
 @endsection
