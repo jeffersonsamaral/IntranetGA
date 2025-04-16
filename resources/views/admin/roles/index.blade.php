@@ -52,6 +52,9 @@
                             @endif
                         </td>
                         <!-- <td>{{ $role->permissions->count() }}</td> -->
+                        <td> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;
                         <td>
                             <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-sm btn-info" title="Visualizar">
                                 <i class="fas fa-eye"></i>

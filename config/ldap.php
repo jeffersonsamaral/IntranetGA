@@ -34,7 +34,7 @@ return [
                     'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
                     'password' => env('LDAP_PASSWORD', 'secret'),
                     'port' => env('LDAP_PORT', 389),
-                    'base_dn' => 'CN=Domain Users,CN=Users,DC=ad,DC=gruponous,DC=com,DC=br',
+                    'base_dn' => 'DC=ad,DC=gruponous,DC=com,DC=br', //OU=Intranet,OU=Grupos,OU=Nous,DC=ad,DC=gruponous,DC=com,DC=br
                     'timeout' => env('LDAP_TIMEOUT', 5),
                     'use_ssl' => env('LDAP_SSL', false),
                     'use_tls' => env('LDAP_TLS', false),

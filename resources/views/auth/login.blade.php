@@ -11,7 +11,7 @@
         </div>
         
         <div class="login-body">
-            <h1 class="login-title">Acesso a Intranet</h1>
+            <h1 class="login-title">Acesse a Intranet</h1>
             
             @if($errors->any())
                 <div class="alert alert-danger">

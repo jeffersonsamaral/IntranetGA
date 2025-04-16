@@ -48,10 +48,10 @@
                     </a>
                     @endcan
                     <a href="{{ route('admin.roles.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
-                        <i class="fas fa-user-tag"></i> <span>Roles</span>
+                        <i class="fas fa-user-tag"></i> <span>Regras de Acessos</span>
                     </a>
                     <a href="{{ route('admin.ad-groups.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.ad-groups.*') ? 'active' : '' }}">
-                        <i class="fas fa-users-cog"></i> <span>Grupos AD</span>
+                        <i class="fas fa-users-cog"></i> <span>Grupos de Acesso (AD)</span>
                     </a>
                 </div>
             </nav>  
