@@ -30,30 +30,40 @@
                 <a href="{{ route('dashboard') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
+                
                 <a href="{{ route('profile') }}" class="sidebar-menu-item {{ request()->routeIs('profile') ? 'active' : '' }}">
                     <i class="fas fa-user"></i> <span>Perfil</span>
                 </a>
+                
+                @if(auth()->user()->hasRole('admin') || auth()->user()->hasPermission('board.view'))
                 <a href="{{ route('admin.board.index') }}" class="sidebar-menu-item {{ request()->routeIs('admin.board.*') ? 'active' : '' }}">
                     <i class="fas fa-clipboard-list"></i> <span>Mural de Recados</span>
                 </a>
+                @endif
+                
+                @if(auth()->user()->hasRole('admin') || 
+                    auth()->user()->hasPermission('roles.view') || 
+                    auth()->user()->hasPermission('ad-groups.view'))
                 <a href="#" class="sidebar-menu-item has-submenu" id="config-menu">
                     <i class="fas fa-cog"></i> <span>Configurações</span>
                     <i class="fas fa-chevron-down submenu-icon"></i>
                 </a>
                 <!-- Submenu de Configurações -->
                 <div class="sidebar-submenu" id="config-submenu">
-                    @can('permissions.view')
-                    <a href="{{ route('admin.permissions.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.permissions.*') ? 'active' : '' }}">
-                        <i class="fas fa-key"></i> <span>Permissões</span>
-                    </a>
-                    @endcan
+                     
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasPermission('roles.view'))
                     <a href="{{ route('admin.roles.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
                         <i class="fas fa-user-tag"></i> <span>Regras de Acessos</span>
                     </a>
+                    @endif
+                    
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasPermission('ad-groups.view'))
                     <a href="{{ route('admin.ad-groups.index') }}" class="sidebar-menu-item submenu-item {{ request()->routeIs('admin.ad-groups.*') ? 'active' : '' }}">
                         <i class="fas fa-users-cog"></i> <span>Grupos de Acesso (AD)</span>
                     </a>
+                    @endif
                 </div>
+                @endif
             </nav>  
             <div class="sidebar-footer">
                 <form method="POST" action="{{ route('logout') }}">

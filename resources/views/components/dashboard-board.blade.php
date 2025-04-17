@@ -4,16 +4,19 @@
             <i class="fas fa-clipboard-list text-primary me-2"></i> 
             Mural de Recados
         </h5>
-        @can('board.create')
         <div>
+            @can('board.create')
             <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
                 <i class="fas fa-plus me-1"></i> Novo Recado
             </a>
+            @endcan
+            
+            @can('board.view')
             <a href="{{ route('admin.board.index') }}" class="btn btn-sm btn-outline ms-1">
                 <i class="fas fa-list me-1"></i> Ver Todos
             </a>
+            @endcan
         </div>
-        @endcan
     </div>
     <div class="card-body p-0">
         <div class="board-preview">
@@ -72,9 +75,11 @@
                 
                 @if(count($messages) > 0)
                 <div class="text-center py-2 border-top">
+                    @can('board.view')
                     <a href="{{ route('admin.board.index') }}" class="text-decoration-none text-primary">
                         Ver todos os recados <i class="fas fa-arrow-right ms-1"></i>
                     </a>
+                    @endcan
                 </div>
                 @endif
             @endif

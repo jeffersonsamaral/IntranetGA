@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Mural de Recados')
@@ -83,7 +82,10 @@
         </div>
         @empty
         <div class="alert alert-info">
-            Nenhum recado encontrado. Crie o primeiro recado clicando no botão "Novo Recado".
+            Nenhum recado encontrado. 
+            @can('board.create')
+            Crie o primeiro recado clicando no botão "Novo Recado".
+            @endcan
         </div>
         @endforelse
     </div>

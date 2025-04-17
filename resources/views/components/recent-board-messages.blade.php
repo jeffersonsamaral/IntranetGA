@@ -1,4 +1,3 @@
-// resources/views/components/recent-board-messages.blade.php
 <div class="card shadow-sm mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title mb-0">Mural de Recados</h5>
