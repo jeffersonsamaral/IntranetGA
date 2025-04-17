@@ -14,6 +14,8 @@ class BoardMessageController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
+        // O problema pode estar aqui - vamos garantir que as permissões estejam corretas
         $this->middleware('permission:board.view')->only(['index', 'show']);
         $this->middleware('permission:board.create')->only(['create', 'store']);
         $this->middleware('permission:board.edit')->only(['edit', 'update']);

@@ -45,4 +45,16 @@ class CheckPermission
         // Verifica se o usuário tem a permissão específica
         return $user->hasPermission($permission);
     }
+
+    public function permissions()
+    {
+        $permissionIds = [];
+        
+        foreach ($this->roles as $role) {
+            $rolePermissions = $role->permissions->pluck('id')->toArray();
+            $permissionIds = array_merge($permissionIds, $rolePermissions);
+        }
+        
+        return Permission::whereIn('id', array_unique($permissionIds));
+    }
 }
