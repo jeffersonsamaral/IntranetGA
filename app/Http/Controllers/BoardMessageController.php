@@ -14,12 +14,11 @@ class BoardMessageController extends Controller
      */
     public function __construct()
     {
-        // Em vez de usar alias de middleware, vamos usar a classe diretamente
-        $this->middleware(\App\Http\Middleware\CheckPermission::class.':board.view')->only(['index', 'show']);
-        $this->middleware(\App\Http\Middleware\CheckPermission::class.':board.create')->only(['create', 'store']);
-        $this->middleware(\App\Http\Middleware\CheckPermission::class.':board.edit')->only(['edit', 'update']);
-        $this->middleware(\App\Http\Middleware\CheckPermission::class.':board.delete')->only(['destroy']);
-        $this->middleware(\App\Http\Middleware\CheckPermission::class.':board.pin')->only(['togglePin']);
+        $this->middleware('permission:board.view')->only(['index', 'show']);
+        $this->middleware('permission:board.create')->only(['create', 'store']);
+        $this->middleware('permission:board.edit')->only(['edit', 'update']);
+        $this->middleware('permission:board.delete')->only(['destroy']);
+        $this->middleware('permission:board.pin')->only(['togglePin']);
     }
 
     /**

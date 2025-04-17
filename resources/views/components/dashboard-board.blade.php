@@ -5,11 +5,11 @@
             Mural de Recados
         </h5>
         <div>
-            @can('board.create')
-            <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
-                <i class="fas fa-plus me-1"></i> Novo Recado
-            </a>
-            @endcan
+        @can('board.create')
+        <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus me-1"></i> Novo Recado
+        </a>
+        @endcan
             
             @can('board.view')
             <a href="{{ route('admin.board.index') }}" class="btn btn-sm btn-outline ms-1">

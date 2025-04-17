@@ -41,7 +41,7 @@ class CheckPermission
         if ($user->hasRole('admin')) {
             return true;
         }
-
+    
         // Verifica se o usuário tem a permissão específica
         return $user->hasPermission($permission);
     }

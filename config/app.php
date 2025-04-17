@@ -20,6 +20,7 @@ return [
     // Nossos novos service providers
     App\Providers\AccessControlServiceProvider::class,
     App\Providers\LdapAuthServiceProvider::class,
+    App\Providers\BladeServiceProvider::class,
     
     /*
     |--------------------------------------------------------------------------
