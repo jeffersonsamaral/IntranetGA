@@ -71,12 +71,37 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     public function hasPermission($permission): bool
     {
-        // Verifica por slug ou por objeto
-        if (is_string($permission)) {
-            return $this->permissions()->where('slug', $permission)->exists();
+        // Verifica se o usuário possui a role 'admin'
+        if ($this->hasRole('admin')) {
+            return true;
         }
         
-        return $this->permissions()->where('id', $permission->id)->exists();
+        // Verifica permissões através das roles
+        foreach ($this->roles as $role) {
+            // Pula roles inativas
+            if (!$role->is_active) {
+                continue;
+            }
+            
+            // Verifica se a role tem a permissão
+            if (is_string($permission)) {
+                // Verifica por slug
+                foreach ($role->permissions as $perm) {
+                    if ($perm->slug === $permission) {
+                        return true;
+                    }
+                }
+            } else {
+                // Verifica por objeto
+                foreach ($role->permissions as $perm) {
+                    if ($perm->id === $permission->id) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 
     /**
