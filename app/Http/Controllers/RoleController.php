@@ -154,7 +154,7 @@ class RoleController extends Controller
         
         return redirect()
             ->route('admin.roles.show', $role)
-            ->with('success', 'Role atualizada com sucesso!');
+            ->with('success', 'Regra atualizada com sucesso!');
     }
     
     /**

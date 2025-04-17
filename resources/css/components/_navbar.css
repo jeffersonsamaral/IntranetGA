@@ -17,7 +17,7 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: right;
 }
 
 .navbar-left {
@@ -27,9 +27,9 @@
 }
 
 .navbar-logo {
-  height: 40px;
+  height: 200px;
   width: auto;
-  margin-left: var(--spacing-4);
+  margin-left: var(--spacing-20);
 }
 
 .navbar-right {
@@ -109,4 +109,26 @@
   .navbar-logo {
     margin-left: var(--spacing-2);
   }
+}
+
+.sidebar {
+  position: fixed;
+  width: 250px; /* Largura do menu lateral */
+  height: 100%;
+  z-index: 1000; /* Certifique-se de que o z-index é menor que o da imagem */
+  /* Outros estilos */
+}
+
+.main-content {
+  margin-left: 250px; /* Espaço para o menu lateral */
+  position: relative;
+  z-index: 1001; /* Maior que o z-index do menu lateral */
+  /* Outros estilos */
+}
+
+.imagem-ajustada {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  /* Outros estilos conforme necessário */
 }

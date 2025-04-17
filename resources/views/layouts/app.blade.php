@@ -72,7 +72,7 @@
                 <button type="button" id="mobile-sidebar-toggle" class="mobile-menu-button">
                     <i class="fas fa-bars"></i>
                 </button>
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo IntranetGA" class="navbar-logo" onerror="this.src='{{ asset('images/default-logo.png') }}'; this.onerror='';">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Intranet" class="navbar-logo" onerror="this.src='{{ asset('images/default-logo.png') }}'; this.onerror='';" >
                 </div>
             </div>
         </nav>
