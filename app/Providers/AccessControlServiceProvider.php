@@ -39,8 +39,8 @@ class AccessControlServiceProvider extends ServiceProvider
             }
         });
 
-        // Configurar o Gate para permissões
-        Gate::define('permission', function ($user, $permission) {
+        // Configurar o Gate para permissões (usando nome diferente para evitar conflito com middleware)
+        Gate::define('has-permission', function ($user, $permission) {
             return $user->hasPermission($permission);
         });
 
