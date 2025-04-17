@@ -1,16 +1,16 @@
 /* resources/css/components/_sidebar.css */
 .sidebar {
   width: 250px;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 60px); /* Considera altura da navbar */
   position: fixed;
-  top: 60px;
+  top: 60px; /* Posiciona abaixo da navbar */
   left: 0;
   background-color: white;
   border-right: 1px solid #eaecef;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
-  z-index: 70;
+  z-index: 80; /* Z-index menor que a navbar */
 }
 
 .sidebar-collapsed {
@@ -100,10 +100,19 @@
 
 /* Ajuste do conteúdo principal para acomodar a sidebar */
 .dashboard-container {
-  margin-left: 250px;
-  margin-top: 60px; /* Espaço para a navbar */
-  background-color: #ffffff;
+  margin-left: 2500px;
+  margin-top: 600px; /* Espaço para a navbar */
+  padding-top: var(--spacing-4); /* Espaço adicional */
   min-height: calc(100vh - 60px);
+  transition: margin-left 0.3s ease;
+}
+
+.dashboard-container22 {
+  margin-left: 2500px;
+  margin-top: 600px; /* Espaço para a navbar */
+  padding-top: var(--spacing-4); /* Espaço adicional */
+  min-height: calc(100vh - 60px);
+  transition: margin-left 0.3s ease;
 }
 
 .dashboard-container.sidebar-collapsed-content {
@@ -142,17 +151,18 @@
   .sidebar {
     transform: translateX(-100%);
     box-shadow: none;
+    width: 250px; /* Largura fixa para mobile */
   }
   
   .sidebar.mobile-visible {
     transform: translateX(0);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    top: 60px;
   }
   
   .dashboard-container {
     margin-left: 0;
   }
+}
   
   .sidebar-top {
     display: none; /* Esconde o botão de toggle no topo do sidebar em mobile */

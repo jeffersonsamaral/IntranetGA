@@ -9,7 +9,7 @@
   background-color: white;
   border-bottom: 1px solid #eaecef;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  z-index: 80;
+  z-index: 90; /* Aumentado para ficar acima de outros elementos */
   padding: 0 var(--spacing-4);
 }
 
@@ -27,9 +27,9 @@
 }
 
 .navbar-logo {
-  height: 200px;
+  height: 40px; /* Reduzido para melhor ajuste */
   width: auto;
-  margin-left: var(--spacing-20);
+  margin-left: var(--spacing-2); /* Reduzido o espaçamento */
 }
 
 .navbar-right {
@@ -104,31 +104,10 @@
   border-top: 1px solid #eaecef;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* Ajuste para modo responsivo */
+@media (min-width: 769px) {
   .navbar-logo {
     margin-left: var(--spacing-2);
   }
 }
 
-.sidebar {
-  position: fixed;
-  width: 250px; /* Largura do menu lateral */
-  height: 100%;
-  z-index: 1000; /* Certifique-se de que o z-index é menor que o da imagem */
-  /* Outros estilos */
-}
-
-.main-content {
-  margin-left: 250px; /* Espaço para o menu lateral */
-  position: relative;
-  z-index: 1001; /* Maior que o z-index do menu lateral */
-  /* Outros estilos */
-}
-
-.imagem-ajustada {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  /* Outros estilos conforme necessário */
-}

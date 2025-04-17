@@ -92,16 +92,17 @@
             // Toggle sidebar em dispositivos móveis
             const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
             const sidebar = document.getElementById('sidebar');
+            const dashboardContainer = document.querySelector('.dashboard-container');
             
             if (mobileSidebarToggle) {
-                mobileSidebarToggle.addEventListener('click', function() {
+                mobileSidebarToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Impede propagação do evento
                     sidebar.classList.toggle('mobile-visible');
                 });
-            }
+    }
             
             // Toggle de colapso do sidebar para desktop
             const sidebarToggle = document.getElementById('sidebar-toggle');
-            const dashboardContainer = document.querySelector('.dashboard-container');
             
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function() {
@@ -114,13 +115,15 @@
             
             // Fechar sidebar ao clicar fora em dispositivos móveis
             document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
                 const isClickInsideSidebar = sidebar.contains(event.target);
                 const isClickOnToggle = mobileSidebarToggle && mobileSidebarToggle.contains(event.target);
                 
-                if (!isClickInsideSidebar && !isClickOnToggle && window.innerWidth <= 768) {
+                if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('mobile-visible')) {
                     sidebar.classList.remove('mobile-visible');
                 }
-            });
+            }
+        });
             
             // Gerenciamento do submenu de configurações
             const configMenu = document.getElementById('config-menu');
