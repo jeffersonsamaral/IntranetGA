@@ -13,13 +13,13 @@
             @can('board.view')
                 @include('components.recent-board-messages')
             @endcan
-            
+  <!--          
             <div class="row">
                 <div class="col-12">
                     @include('components.dashboard-board')
                 </div>
             </div>
-
+    -->
             
         </div>
     </div>

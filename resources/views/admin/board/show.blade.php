@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Mural de Recados')
+@section('title', 'Visualizar Recado')
 
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Mural de Recados</h1>
-        @can('board.create')
-        <a href="{{ route('admin.board.create') }}" class="btn btn-sm btn-primary">
-            <i class="fas fa-plus"></i> Novo Recado
+        <h1>Visualizar Recado</h1>
+        <a href="{{ route('admin.board.index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Voltar
         </a>
-        @endcan
     </div>
 
     @if(session('success'))
@@ -19,77 +17,93 @@
     </div>
     @endif
 
-    <div class="board-messages">
-        @forelse($messages as $message)
-        <div class="card shadow-sm mb-4 {{ $message->is_pinned ? 'border-primary' : '' }}">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
-                    @if($message->is_pinned)
-                    <i class="fas fa-thumbtack text-primary"></i> 
-                    @endif
-                    {{ $message->title }}
-                </h5>
-                <div>
-                    @can('board.pin')
-                    <form action="{{ route('admin.board.toggle-pin', $message) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-sm {{ $message->is_pinned ? 'btn-outline-primary' : 'btn-outline-secondary' }}" title="{{ $message->is_pinned ? 'Desafixar' : 'Fixar' }}">
-                            <i class="fas fa-thumbtack"></i>
-                        </button>
-                    </form>
-                    @endcan
-                    
-                    @can('board.edit')
-                    <a href="{{ route('admin.board.edit', $message) }}" class="btn btn-sm btn-primary" title="Editar">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    @endcan
-                    
-                    @can('board.delete')
-                    <form action="{{ route('admin.board.destroy', $message) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este recado?')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                    @endcan
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    {!! $message->content !!}
-                </div>
-                
-                @if($message->attachment)
-                <div class="attachment mb-3">
-                    <a href="{{ Storage::url($message->attachment) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-                        <i class="fas fa-paperclip"></i> Anexo
-                    </a>
-                </div>
+    <div class="card shadow-sm mb-4 {{ $board->is_pinned ? 'border-primary' : '' }}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">
+                @if($board->is_pinned)
+                <i class="fas fa-thumbtack text-primary"></i> 
                 @endif
+                {{ $board->title }}
+            </h5>
+            <div>
+                @can('board.pin')
+                <form action="{{ route('admin.board.toggle-pin', $board) }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-sm {{ $board->is_pinned ? 'btn-outline-primary' : 'btn-outline-secondary' }}" title="{{ $board->is_pinned ? 'Desafixar' : 'Fixar' }}">
+                        <i class="fas fa-thumbtack"></i>
+                    </button>
+                </form>
+                @endcan
                 
-                <div class="message-meta text-muted">
-                    <small>
-                        Por: {{ $message->user->name }} | 
-                        Criado em: {{ $message->created_at->format('d/m/Y H:i') }}
-                        @if($message->created_at != $message->updated_at)
-                        | Atualizado em: {{ $message->updated_at->format('d/m/Y H:i') }}
+                @can('board.edit')
+                <a href="{{ route('admin.board.edit', $board) }}" class="btn btn-sm btn-primary" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </a>
+                @endcan
+                
+                @can('board.delete')
+                <form action="{{ route('admin.board.destroy', $board) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este recado?')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+                @endcan
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="board-content mb-4">
+                {!! $board->content !!}
+            </div>
+            
+            @if($board->attachment)
+            <div class="attachment mb-3">
+                <a href="{{ Storage::url($board->attachment) }}" target="_blank" class="btn btn-outline-secondary">
+                    <i class="fas fa-paperclip"></i> Baixar Anexo
+                </a>
+            </div>
+            @endif
+            
+            <div class="message-meta text-muted mt-4 pt-3 border-top">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Autor:</strong> {{ $board->user->name }}</p>
+                        <p class="mb-1"><strong>Criado em:</strong> {{ $board->created_at->format('d/m/Y H:i') }}</p>
+                        @if($board->created_at != $board->updated_at)
+                        <p class="mb-1"><strong>Atualizado em:</strong> {{ $board->updated_at->format('d/m/Y H:i') }}</p>
                         @endif
-                    </small>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Status:</strong> 
+                            @if($board->is_active)
+                            <span class="badge bg-success">Ativo</span>
+                            @else
+                            <span class="badge bg-danger">Inativo</span>
+                            @endif
+                        </p>
+                        <p class="mb-1"><strong>Fixado:</strong> 
+                            @if($board->is_pinned)
+                            <span class="badge bg-primary">Sim</span>
+                            @else
+                            <span class="badge bg-secondary">Não</span>
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        @empty
-        <div class="alert alert-info">
-            Nenhum recado encontrado. 
-            @can('board.create')
-            Crie o primeiro recado clicando no botão "Novo Recado".
-            @endcan
-        </div>
-        @endforelse
     </div>
-    
-    {{ $messages->links() }}
 </div>
+
+<style>
+    .board-content {
+        min-height: 150px;
+    }
+    
+    .board-content img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 @endsection
