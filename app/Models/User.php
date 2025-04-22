@@ -9,11 +9,30 @@ use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use App\Traits\HasAttributes;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
-    use Notifiable, AuthenticatesWithLdap, HasAttributes;
-
+    use Notifiable, AuthenticatesWithLdap, HasAttributes, HasRoles {
+        HasRoles::hasDirectPermission as spatieHasDirectPermission;
+        HasRoles::getDirectPermissions as spatieGetDirectPermissions;
+    }
+    
+    /**
+     * Override Spatie's direct permission check to use our role-based approach
+     */
+    public function hasDirectPermission($permission): bool
+    {
+        return $this->hasPermission($permission);
+    }
+    
+    /**
+     * Override Spatie's getDirectPermissions to avoid table queries
+     */
+    public function getDirectPermissions()
+    {
+        return collect();
+    }
     protected $fillable = [
         'name',
         'email',

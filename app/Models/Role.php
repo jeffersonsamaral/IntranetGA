@@ -5,10 +5,74 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\HasAttributes;
+use Spatie\Permission\Contracts\Role as RoleContract;
+use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
-class Role extends Model
+class Role extends Model implements RoleContract
 {
-    use HasAttributes;
+    use HasAttributes, HasPermissions;
+    
+    /**
+     * Find a role by its name.
+     *
+     * @param string $name
+     * @param string|null $guardName
+     *
+     * @throws \Spatie\Permission\Exceptions\RoleDoesNotExist
+     *
+     * @return \Spatie\Permission\Contracts\Role
+     */
+    public static function findByName(string $name, ?string $guardName = null): RoleContract
+    {
+        $role = static::where('slug', $name)->first();
+        
+        if (! $role) {
+            throw RoleDoesNotExist::named($name);
+        }
+        
+        return $role;
+    }
+
+    /**
+     * Find a role by its id.
+     *
+     * @param string|int $id
+     * @param string|null $guardName
+     *
+     * @throws \Spatie\Permission\Exceptions\RoleDoesNotExist
+     *
+     * @return \Spatie\Permission\Contracts\Role
+     */
+    public static function findById(string|int $id, ?string $guardName = null): RoleContract
+    {
+        $role = static::find($id);
+        
+        if (! $role) {
+            throw RoleDoesNotExist::withId($id);
+        }
+        
+        return $role;
+    }
+
+    /**
+     * Find or create role by its name.
+     *
+     * @param string $name
+     * @param string|null $guardName
+     *
+     * @return \Spatie\Permission\Contracts\Role
+     */
+    public static function findOrCreate(string $name, ?string $guardName = null): RoleContract
+    {
+        $role = static::where('slug', $name)->first();
+        
+        if (! $role) {
+            return static::create(['name' => $name, 'slug' => $name]);
+        }
+        
+        return $role;
+    }
 
     protected $fillable = [
         'name',
