@@ -52,9 +52,26 @@ class Role extends Model
     {
         // Verifica por slug ou por objeto
         if (is_string($permission)) {
-            return $this->permissions()->where('slug', $permission)->exists();
+            // Verifica diretamente pelo slug da permissão
+            if ($this->permissions()->where('slug', $permission)->exists()) {
+                return true;
+            }
+            
+            // Verifica por permissão de grupo (formato 'grupo.*')
+            $parts = explode('.', $permission);
+            if (count($parts) > 1) {
+                $group = $parts[0];
+                $wildcardPermission = $group . '.*';
+                
+                if ($this->permissions()->where('slug', $wildcardPermission)->exists()) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
         
-        return $this->permissions()->where('id', $permission->id)->exists();
+        // Verifica pelo objeto de permissão, especificando a tabela
+        return $this->permissions()->where('permissions.id', $permission->id)->exists();
     }
 }
